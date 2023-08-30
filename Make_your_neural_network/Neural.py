@@ -2,6 +2,12 @@ import numpy as np
 from scipy.special import expit, logit
 import matplotlib.pyplot as plt
 
+"""
+Il manque le dataset d'entrainement contenant 60 000 chiffres manuscrits car cela 
+dépasse la taille maximale des fichiers sur github.
+Téléchargeable ici: http://www.pjreddie.com/media/files/mnist_train.csv
+"""
+
 class neuralNetwork:
     """
     My neural Network

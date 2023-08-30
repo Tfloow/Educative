@@ -1,5 +1,8 @@
 # Make Your own neural network in Python
 
+## Remarque
+Pour entrainer l'IA il faut télécharger ce [document](http://www.pjreddie.com/media/files/mnist_train.csv) et le mettre dans `MNIST`. (attention de ne pas le commit car ce dernier est trop volumineux pour Github)
+
 Sigmoids: $\frac{1}{1+e^{-x}}$
 
 ## Backward error propagation

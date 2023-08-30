@@ -5,6 +5,10 @@
       - [Tick](#tick)
       - [Spine](#spine)
       - [Legend](#legend)
+      - [Annotate](#annotate)
+      - [Text](#text)
+      - [Grid](#grid)
+      - [Title](#title)
 
 
 ![](resume.png)
@@ -51,3 +55,96 @@ On peut déplacer la spine avec `set_position(position_type, amount)` Il y a dif
 - `outward`: pour le mettre hors des data
 
 #### Legend
+Permet de donner une description pour un élément d'une figure. Il y a 2 façons d'ajouter des labels:
+
+```python
+fig, axe = plt.subplots(dpi=800)
+
+axe.plot(points, y1)
+axe.plot(points, y2)
+axe.legend(["tanh", "sin"])
+```
+```python
+fig, axe = plt.subplots(dpi=800)
+
+axe.plot(points, y1, label="tanh")
+axe.plot(points, y2, label="sin")
+axe.legend()
+```
+On peut énormément customiser ces labels via:
+- `loc`: On peut choisir où se trouve la légende (eg: `upper left`, `upper right`, ...)
+- `fontsize`: Taille de la police
+- ``ncol``: Nombre de colonne pour la légdende
+- ``frameon``: La légende va être dessiné ou non
+- ``shadow``: Pour ajouter de l'ombre
+- ``title``: Donne un titre à la légende
+- ``facecolor``: Change la couleur de fond
+- ``edgecolor``: Change la couleur du contour
+
+#### Annotate
+Une annotation est un morceau de texte qui identifie une donnée spécifique. On met en premier argument le texte qu'on veut ajouter. Voici quelques annotations basiques:
+
+- ``xy``: Le point $(x,y)$ qui doit être annoté (un tuple)
+- ``xytext``: La position où le texte va apparaitre (si rien alors sera égale à `xy`)
+- ``xycoords``: Le système de coordonnées pour `xy`
+- ``textcoords``: Le système de coordonnées pour `xytext`
+- ``arrowprops``: Propriétés des flèches dessinées entre `xy` et `xytext`
+- `bbox`: Permet de changer le style de l'étiquette.
+
+Pour plus [d'info](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.annotate.html)
+
+```python
+fig, axe = plt.subplots(dpi=800)
+axe.plot(points, y1)
+axe.plot(points, y2)
+axe.legend(["tanh", "sin"])
+axe.annotate("1.464=tanh(2)+0.5", xy=(2, 1.464), xycoords="data",
+             xytext=(0.4, -40), textcoords='offset points',
+             arrowprops=dict(arrowstyle="->", connectionstyle="arc3,rad=.5"))
+```
+![](note.png)
+
+les différents paramètres pour les coordonnées:
+|      Type       |                          Description                           |
+| :-------------: | :------------------------------------------------------------: |
+|  figure points  |            Points depuis le bas gauche de la figure            |
+|  figure pixels  |            Pixels depuis le bas gauche de la figure            |
+| figure fraction |         Une fraction depuis le bas gauche de la figure         |
+|   axes points   |           Points depuis le coin bas gauche de l'axes           |
+|   axes pixels   |           Pixels depuis le coin bas gauche de l'axes           |
+|  axes fraction  |        Une fraction depuis le coin bas gauche de l'axes        |
+|      data       |      Utilise le système de coordonnées de l'objet annoté       |
+|      polar      | $(\theta, r)$, sinon utilise les coordonnées natives de `data` | 
+
+#### Text
+Le texte est une version simplifiée de `annotate`. Très utile quand notre texte n'est relié à aucune donnée spécifique.
+```python
+axe.text(x, y, text, fontdict, bbox)
+```
+`fontdict` est un dictionnaire pour une police d'écriture de type:
+```python
+font = {'family': 'serif',
+        'color':  'darkred',
+        'weight': 'normal',
+        'size': 16,
+        }
+```
+Le texte supporte également [$\LaTeX$](https://www.latex-project.org/).
+
+#### Grid
+Cela correspond au quadrillé sur un graphe. quelques paramètres:
+
+- `color`: Couleur des quadrillés
+- `linestyle`: Style des quadrillés (eg: `-`, `dashed`)
+- `linewidth`: Épaisseur des quadrillés
+- `which`: Pour choisir quel `tick` on relie
+
+Le `which` permet de choisir quel `tick` on relie. Soit ceux avec des chiffres qu'on appelle des `major` ou ceux intermédiaires sans chiffres `minor`.
+
+```python
+axe.grid(which='major', linestyle='-', linewidth='0.5', color='blue')
+axe.grid(which='minor', linestyle=':', linewidth='0.5', color='black')
+```
+![](grid.png)
+
+#### Title
