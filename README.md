@@ -9,13 +9,13 @@ Here, you can find my journey through various courses proposed by [Educative](ht
 
 ## Progress
 - Make your own Neural network in python [(url)](https://www.educative.io/courses/make-your-own-neural-network-in-python): 100%
-- Matplolib for python [(url)](https://www.educative.io/courses/matplotlib-for-python-visually-represent-data-with-plots): 28%
+- Matplolib for python [(url)](https://www.educative.io/courses/matplotlib-for-python-visually-represent-data-with-plots): 31%
 
 ## Structure
 Each folder correspond to a course from Educative. In each folder you can find a `note.md` with all my notes and summary of the class. Furthermore, you can find some of my code (*some inspired from given example on Educative*) related to each classes.
 
 ## Summary
-- [Neural Network](https://github.com/Tfloow/Educative/blob/main/Make_your_neural_network/note.md)
+- [Neural Network](https://github.com/Tfloow/Educative/blob/main/Make_your_neural_network/Note.md)
 - [Matplotlib introduction](https://github.com/Tfloow/Educative/blob/main/Matplotlib_for_Python/note.md)
 
 ## Credit
