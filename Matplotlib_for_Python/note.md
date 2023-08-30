@@ -23,6 +23,13 @@
     - [Histogram](#histogram)
     - [Pie](#pie)
     - [Box](#box)
+    - [Heatmap](#heatmap)
+    - [Radar](#radar)
+    - [Colorbar](#colorbar)
+    - [3D plot using Surface plot](#3d-plot-using-surface-plot)
+    - [Filling area between Two Curves](#filling-area-between-two-curves)
+    - [Stem Plot](#stem-plot)
+    - [Stack](#stack)
 
 
 ![](resume.png)
@@ -475,3 +482,204 @@ Pour Customiser le style de la boite on utilise 3 paramètres dans `boxplot()`:
 axe.boxplot(values, labels=labels,patch_artist=True,
             boxprops=dict(facecolor='teal', color='r'))
 ```
+
+### Heatmap
+C'est une représentation très utile pour montrer les relations entre les 2 variables. Il n'y a pas de *built-in* donc on doit utiliser `imshow()`.
+```python
+xlabels = ["dog", "cat", "bird", "fish", "horse"]
+ylabels = ["red", "blue", "yellow", "pink", "green"]
+
+values = np.array([[0.8, 1.2, 0.3, 0.9, 2.2],
+                   [2.5, 0.1, 0.6, 1.6, 0.7],
+                   [1.1, 1.3, 2.8, 0.5, 1.7],
+                   [0.2, 1.2, 1.7, 2.2, 0.5],
+                   [1.4, 0.7, 0.3, 1.8, 1.0]])
+
+fig, axe = plt.subplots(dpi=300)
+axe.set_xticks(np.arange(len(xlabels)))
+axe.set_yticks(np.arange(len(ylabels)))
+axe.set_xticklabels(xlabels)
+axe.set_yticklabels(ylabels)
+im = axe.imshow(values)
+```
+![](heatmap.png)
+
+On peut ajouter des annotations au *heatmap*. Pour cela on doit faire cela de manière rudimentaire. On utilise donc `axe.text(i, j, values[i, j])`.
+```python
+for i in range(len(xlabels)):
+    for j in range(len(ylabels)):
+        text = axe.text(i, j, values[i, j],
+                       horizontalalignment="center", verticalalignment="center", color="w")
+```
+Pour ajouter une barre de couleur à la heatmap on utilise `axe.figure.colorbar(im, ax=axe)`. `im = axe.imshow(values)` ce qui est la heatmap.
+
+### Radar
+C'est une figure sous forme de toile d'araignée. Ce n'est pas intégré de base donc on doit créer une fonction de radar. On utilise 5 étapes:
+1. Il faut calculer les angles pour les valeurs de chaque catégorie.
+2. On ajoute le premier objet au dernier et on fait le graphe se terminer
+3. On utilise les coordonnées polaires
+4. On plot simplement via `plot()`
+5. On remplie les zones manquantes
+
+```python
+import math
+
+labels = ["Sun", "Moon", "Jupiter", "Venus", "Mars", "Mecury"]
+values = [10, 8, 4, 5, 2, 7]
+values += values[:1]
+angles = [n / float(len(labels)) * 2 * math.pi for n in range(len(labels))]
+angles += angles[:1]
+
+fig, axe = plt.subplots(subplot_kw=dict(polar=True), dpi=800)
+axe.set_xticks(angles[:-1])
+axe.set_xticklabels(labels, color='r')
+axe.plot(angles, values)
+axe.fill(angles, values, 'skyblue', alpha=0.4)
+```
+![](radar.png)
+
+### Colorbar
+Cela nous permet d'avoir une barre colorée pour nous aider à visualiser. On va l'utiliser en l'appelant depuis `fig` qui requiert 2 étapes:
+1. `mappable`: `matplotlib.cm.ScalarMappable` décrit par le colorbar
+2. `cax`: les axes de l'objet sur lequel les couleurs vont être dessiné
+
+`matplotlib.cm.ScalarMappable` est une sorte de classe qui map des données scalaires en RGBA. On veut 2 paramètres:
+1. `norm`: Une classe normalisée qui est un chiffre entre `0` et `1`
+2. `cmap`: La colormap est utilisé pour mappé les données normalisées en RGBA. On en appelle via `plt.get_cmap()`
+
+![les différents colormap](colormap.png)
+
+### 3D plot using Surface plot
+On va surtout utiliser `plot_surface()` qui prend ces paramètres:
+- ``X, Y, Z``: Array 2D 
+- ``rcount``, ``ccount``: Le nombre maximum de samples à utiliser dans chaque direction
+- ``cmap``: Utilise un colormap
+- ``color``: Pour choisir la couleur des patch de surface
+- ``norm``: Pour choisir la normalisation du colormap
+
+Pour utiliser des `Axes3D` on doit importer `mpl_toolkits.mplot3d`. On doit utiliser `meshgrid()` pour avoir un set cartésien.
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+X = np.linspace(-5, 5, 200)
+Y = np.linspace(-5, 5, 200)
+
+X, Y = np.meshgrid(X, Y)
+Z = np.cos(np.sqrt(X**2 + Y**2))
+
+axe = plt.figure().add_subplot(projection="3d")
+axe.plot_surface(X, Y, Z)
+```
+![](3D.png)
+
+On peut aussi utiliser les color map via:
+```python
+surf = axe.plot_surface(X, Y, Z, cmap=plt.get_cmap("plasma"))
+plt.colorbar(surf)
+```
+
+### Filling area between Two Curves
+On va donc utiliser `fill_between()` pour réaliser ceci:
+- ``x``: Les coordonnées en X des noeuds qui définissent la courbe
+- ``y1``: Les coordonnées en Y des noeuds qui définissent la **première** courbe
+- ``y2``: Les coordonnées en Y des noeuds qui définissent la **deuxième** courbe
+- ``where``: Un array de booléens qui définissent les régions horizontales qui doivent être remplies. (example remplissez entre $x[i]$ et $x[i+1]$ si $where[i]$ et $where[i+1]$ est `True`)
+
+```python
+x = np.arange(0, 4, 0.01)
+y1 = np.sin(x*np.pi)
+
+fig, axe = plt.subplots(dpi=300)
+axe.fill_between(x, y1, facecolor='g', alpha=0.6)
+```
+
+![](fill.png)
+
+```python
+axe.fill_between(x, y1, where=(y1 > 0), facecolor='g', alpha=0.6)
+axe.fill_between(x, y1, where=(y1 < 0), facecolor='r', alpha=0.6)
+```
+Donc on peut remplir de manière conditionnelle.
+
+On peut aussi dessinner des bandes de *confidences*. On doit faire ceci:
+1. Préparer les données qu'on a besoin.
+2. Utiliser un `polyfit`, on va faire une régression linéiare
+3. Avoir une courbe d'estimation basée sur `a` et `b` via `y_est`
+4. Avoir l'erreur via `y_err`
+5. Dessiner le plot en utilisant `fill_between()`
+
+```python
+import matplotlib.pyplot as plt
+import numpy as np
+
+x = np.linspace(0, 10, 11)
+y = [3.9, 4.4, 10.8, 10.3, 11.2, 13.1, 14.1,  9.9, 13.9, 15.1, 12.5]
+
+a, b = np.polyfit(x, y, deg=1)
+y_est = a * x + b
+y_err = x.std() * np.sqrt(1/len(x) +
+                          (x - x.mean())**2 / np.sum((x - x.mean())**2))
+
+fig, ax = plt.subplots(dpi=800)
+ax.plot(x, y_est, '-')
+ax.fill_between(x, y_est - y_err, y_est + y_err, alpha=0.2)
+ax.plot(x, y, 'o')
+```
+
+![](band.png)
+
+### Stem Plot
+Très utile en ingé et déjà rencontré. On utilie `stem()` avec ces paramètres:
+- ``x``: La position de la tige sur l'axe x
+- ``y``: La position de la tige sur l'axe y
+- ``linefmt``: Un string définissant les propriétés des lignes verticales
+- ``markerfmt``: Un string définissant les propriétés des marqueurs à la tête des tiges
+- ``bottom``: La position de la *baseline* sur l'axe y
+
+```python
+x = np.linspace(0.1, 2 * np.pi, 31)
+y = np.exp(np.cos(x))
+
+fig, axe = plt.subplots(dpi=800)
+axe.stem(x, y)
+```
+
+![](stem.png)
+
+### Stack
+Ce sont des courbes qui se superposent et qui montrent l'évolution. On utilise `stackplot()` qui prends comme argument:
+- ``x``: Un array 1d de dimension $N$
+- `y`: Un array 2d de dimension $(M \times N)$ ou une séquence d'arrays. Chacun de dimension $1 \times N$
+```python
+stackplot(x, y)
+stackplot(x, y1, y2, y3)
+```
+- `baseline`: La méthode pour calculer la *baseline*:
+  - `zero`: une baseline constante de zéro (par défaut)
+  - `sym`: pour mettre le plot symmétrique autour de 0
+  - `wiggle`: minimise la somme des pentes au carré
+- `color`: Pour donner une liste de couleurs pour chaque data set
+
+```python
+np.random.seed(42)
+x = [1, 2, 3, 4, 5]
+y = [1, 2, 4, 8, 16]
+y1 = y+np.random.randint(1,5,5)
+y2 = y+np.random.randint(1,5,5)
+y3 = y+np.random.randint(1,5,5)
+y4 = y+np.random.randint(1,5,5)
+y5 = y+np.random.randint(1,5,5)
+y6 = y+np.random.randint(1,5,5)
+
+labels = ["Jan", "Feb", "Mar", "Apr", "May"]
+
+fig, axe = plt.subplots(dpi=800)
+axe.stackplot(x, y, y1, y2, y3, y4, y5, y6,
+              labels=["A", "B", "C", "D", "E", "F", "G"])
+axe.set_xticks(x)
+axe.set_xticklabels(labels)
+axe.set_title("car sales from Jan to May")
+axe.legend(loc='upper left')
+```
+![](stack.png)
