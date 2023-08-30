@@ -4,12 +4,9 @@
   - [Structure](#structure)
   - [Summary](#summary)
   - [Credit](#credit)
-
-Here, you can find my journey through various courses proposed by [Educative](https://www.educative.io). 
-
 ## Progress
 - Make your own Neural network in python [(url)](https://www.educative.io/courses/make-your-own-neural-network-in-python): 100%
-- Matplolib for python [(url)](https://www.educative.io/courses/matplotlib-for-python-visually-represent-data-with-plots): 31%
+- Matplolib for python [(url)](https://www.educative.io/courses/matplotlib-for-python-visually-represent-data-with-plots): 68%
 
 ## Structure
 Each folder correspond to a course from Educative. In each folder you can find a `note.md` with all my notes and summary of the class. Furthermore, you can find some of my code (*some inspired from given example on Educative*) related to each classes.
