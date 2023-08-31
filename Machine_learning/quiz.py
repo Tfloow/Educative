@@ -1,6 +1,9 @@
 import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
 
-arr = np.arange(4).reshape((2,2))
-print(arr)
-somme = np.sum(arr, axis=1)
-print(somme)
+df = pd.DataFrame({"yearID": [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007],
+                   "HR": [49, 73, 46, 45, 45,  5, 26, 28]})
+
+df.plot(kind="line", x="yearID", y="HR")
+plt.savefig("Machine_learning/plotExample.png")
