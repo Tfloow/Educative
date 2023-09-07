@@ -1,22 +1,21 @@
 # Machine Learning with NumPy, pandas, scikit-learn, and More
 - [Machine Learning with NumPy, pandas, scikit-learn, and More](#machine-learning-with-numpy-pandas-scikit-learn-and-more)
   - [Introduction](#introduction)
-  - [Data Modeling with scikit-learn](#data-modeling-with-scikit-learn)
   - [Clustering with scikit-learn](#clustering-with-scikit-learn)
   - [Gradient Boosting with XGBoost](#gradient-boosting-with-xgboost)
   - [Deep Learning with TensorFlow](#deep-learning-with-tensorflow)
   - [Deep Learning with Keras](#deep-learning-with-keras)
 
+Doing:
 
-
-
+-   [Data Modeling with scikit-learn](Chapter/Data_Modeling.md)
 
 Done:
 
 - Machine Learning with NumPy, pandas, scikit-learn, and More
-  -  [Data Manipulation with NumPy](Data_Manipulation.md)
-  -  [Data Analysis with pandas](Data_Analysis.md)
-  -  [Data Preprocessing with scikit-learn](Data_Preprocessing.md)
+  -  [Data Manipulation with NumPy](Chapter/Data_Manipulation.md)
+  -  [Data Analysis with pandas](Chapter/Data_Analysis.md)
+  -  [Data Preprocessing with scikit-learn](Chapter/Data_Preprocessing.md)
 
 ## Introduction
 
@@ -38,8 +37,6 @@ They do not mean the same. ML is part of AI and AI overlaps with data science. T
 7. **Model Persistence**: then we need to save the crucial part! The
 
 
-
-## Data Modeling with scikit-learn
 
 ## Clustering with scikit-learn
 
