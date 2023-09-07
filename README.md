@@ -4,6 +4,7 @@
   - [Structure](#structure)
   - [Summary](#summary)
   - [Credit](#credit)
+
 ## Progress
 - Make your own Neural network in python [(url)](https://www.educative.io/courses/make-your-own-neural-network-in-python): 100%
 - Matplolib for python [(url)](https://www.educative.io/courses/matplotlib-for-python-visually-represent-data-with-plots): 100%
