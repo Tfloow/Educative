@@ -114,3 +114,5 @@ How to concatenate ? We can do it thanks to `np.concatenate()`. We concatenate a
 We can save an object in NumPy by using `np.save(*.npy, arr)`. We need to save it in `.npy` extension to be reused by NumPy. Using this extension will make the raw data harder to process by a human.
 
 To load the data, we simply do `arr = np.load(*.npy)`
+
+[→](Data_Analysis.md)

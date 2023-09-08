@@ -443,3 +443,5 @@ print('{}\n'.format(converted[['lgID_AL',
                                'lgID_NL']]))
 ```
 Then to convert to NumPy, we can simply (*after doing the 2 first steps*) do `df.values`.
+
+[→](Data_Preprocessing.md)

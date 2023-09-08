@@ -1,6 +1,9 @@
 # Machine Learning with NumPy, pandas, scikit-learn, and More
 - [Machine Learning with NumPy, pandas, scikit-learn, and More](#machine-learning-with-numpy-pandas-scikit-learn-and-more)
   - [Introduction](#introduction)
+    - [What is Machine Learning](#what-is-machine-learning)
+    - [ML vs. AI vs. data science](#ml-vs-ai-vs-data-science)
+    - [7 steps of the machine learning process](#7-steps-of-the-machine-learning-process)
 
 Summary:
 
@@ -32,3 +35,5 @@ They do not mean the same. ML is part of AI and AI overlaps with data science. T
 5. **Model Training and Data Pipeline**: then we need to choose a data pipeline. Making sure we always have a batch of data ready to be fed.
 6. **Model Validation**: we need to use never seen before data by the model so we can test and validate it.
 7. **Model Persistence**: then we need to save the crucial part! The
+
+[→](Chapter/Data_Manipulation.md)

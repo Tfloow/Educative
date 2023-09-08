@@ -649,3 +649,5 @@ print(reg_cv.best_params_)
 </details>
 
 We first need to give all possible parameters in 2 lists inside of a dictionary. We can specify the number of folds to do with the keyword `cv`.
+
+[→](Clustering_with_scikit-learn.md)

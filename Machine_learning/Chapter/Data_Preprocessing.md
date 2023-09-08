@@ -383,3 +383,5 @@ Benign shape: (357, 30)
 </details>
 
 The class ID of 1 corresponds to a *benign* tumor and 0 a *malignant* one.
+
+[→](Data_Modeling.md)
