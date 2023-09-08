@@ -1,3 +1,5 @@
+[↰](../note.md)
+
 ## Data Manipulation with NumPy
 *This chapter mostly covers previously learned topics so I will just write down some useful info only*.
 

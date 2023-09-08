@@ -1,4 +1,18 @@
+[↰](../note.md)
 ## Data Modeling with scikit-learn
+
+- [Data Modeling with scikit-learn](#data-modeling-with-scikit-learn)
+  - [Linear Regression](#linear-regression)
+  - [Ridge Regression](#ridge-regression)
+  - [LASSO Regression](#lasso-regression)
+  - [Bayesian Regression](#bayesian-regression)
+  - [Logistic Regression](#logistic-regression)
+  - [Decision Trees](#decision-trees)
+  - [Training and Testing](#training-and-testing)
+  - [Cross-Validation](#cross-validation)
+  - [Applying CV to Decision Trees](#applying-cv-to-decision-trees)
+  - [Evaluating Models](#evaluating-models)
+  - [Exhaustive Tuning](#exhaustive-tuning)
 
 Sometimes, we want to create model for our data. Showing relationship and a sort of predictability. That's why we use models for linear regression. Now we need to get the *hyperparameters* to find the constants and variables.
 
@@ -506,10 +520,132 @@ We do not call `fit` prior to using `cross_val_score`. It's because that functio
 
 ### Applying CV to Decision Trees
 
+For a decision tree, we can tune the maximum depth and play around thanks to cross-validation. The K-Fold CV gives an accurate measurement of how good the decision is for the dataset. We need to use the `cv_decision_tree` function to find the best depth:
 
+```python
+is_clf = True  # for classification
+for depth in range(3, 8):
+  # Predefined data and labels
+  scores = cv_decision_tree(
+    is_clf, data, labels, depth, 5)  # k = 5
+  mean = scores.mean()  # Mean acc across folds
+  std_2 = 2 * scores.std()  # 2 std devs
+  print('95% C.I. for depth {}: {} +/- {:.2f}\n'.format(
+    depth, mean, std_2))
+```
+
+<details>
+<summary>Output</summary>
+<br>
+
+```
+95% C.I. for depth 3: 0.9133333333333333 +/- 0.02
+
+95% C.I. for depth 4: 0.9266666666666665 +/- 0.06
+
+95% C.I. for depth 5: 0.9233333333333332 +/- 0.05
+
+95% C.I. for depth 6: 0.9133333333333333 +/- 0.04
+
+95% C.I. for depth 7: 0.9266666666666665 +/- 0.03
+```
+</details>
+
+As we can see, the best depth is 4. If it kept improving after 5,6,7 we would use larger depth.
 
 ### Evaluating Models
 
+We can always use the model to predict data thanks to the `predict` function:
+```python
+reg = tree.DecisionTreeRegressor()
+# predefined train and test sets
+reg.fit(train_data, train_labels)
+predictions = reg.predict(test_data)
+```
+#### Evaluation metrics
 
+To classify how good a model is we use:
+- **For regression models**: the $R^2$, moean squared error or mean absolute error on the test.
+  - $R^2$: to evaluate the fit.
+  - mean squared: to penalize bad predictions.
+  - mean absolute error: definition of error.
+  
+```python
+reg = tree.DecisionTreeRegressor()
+# predefined train and test sets
+reg.fit(train_data, train_labels)
+predictions = reg.predict(test_data)
+
+from sklearn import metrics
+r2 = metrics.r2_score(test_labels, predictions)
+print('R2: {}\n'.format(r2))
+mse = metrics.mean_squared_error(
+  test_labels, predictions)
+print('MSE: {}\n'.format(mse))
+mae = metrics.mean_absolute_error(
+  test_labels, predictions)
+print('MAE: {}\n'.format(mae))
+```
+
+<details>
+<summary>Output</summary>
+<br>
+
+```
+R2: 0.8208491957817456
+
+MSE: 18.218425196850394
+
+MAE: 2.8377952755905516
+```
+</details>
+
+When we want to evaluate a classification model we just use the `accuracy_score` on the test set:
+
+```python
+clf = tree.DecisionTreeClassifier()
+# predefined train and test sets
+clf.fit(train_data, train_labels)
+predictions = clf.predict(test_data)
+
+from sklearn import metrics
+acc = metrics.accuracy_score(test_labels, predictions)
+print('Accuracy: {}\n'.format(acc))
+```
+
+<details>
+<summary>Output</summary>
+<br>
+
+```
+Accuracy: 0.951048951048951
+```
+</details>
 
 ### Exhaustive Tuning
+
+It's best use when the dataset is small and we absolutely need the best parameters. We apply an exhaustive grid search. It will go through all possible combinations. We implement this thanks to the `GridSearchCV` object:
+
+```python
+reg = linear_model.BayesianRidge()
+params = {
+  'alpha_1':[0.1,0.2,0.3],
+  'alpha_2':[0.1,0.2,0.3]
+}
+reg_cv = GridSearchCV(reg, params, cv=5)
+# predefined train and test sets
+reg_cv.fit(train_data, train_labels)
+print(reg_cv.best_params_)
+```
+
+<details>
+<summary>Output</summary>
+<br>
+
+```
+{'alpha_1': 0.1, 'alpha_2': 0.3}
+
+```
+</details>
+
+We first need to give all possible parameters in 2 lists inside of a dictionary. We can specify the number of folds to do with the keyword `cv`.

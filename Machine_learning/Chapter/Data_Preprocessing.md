@@ -1,3 +1,5 @@
+[↰](../note.md)
+
 ## Data Preprocessing with scikit-learn
 Scikit is closer to what data scientist will tend to use when analyzing data. We can work on smaller scale data.
 

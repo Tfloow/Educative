@@ -1,21 +1,18 @@
 # Machine Learning with NumPy, pandas, scikit-learn, and More
 - [Machine Learning with NumPy, pandas, scikit-learn, and More](#machine-learning-with-numpy-pandas-scikit-learn-and-more)
   - [Introduction](#introduction)
-  - [Clustering with scikit-learn](#clustering-with-scikit-learn)
-  - [Gradient Boosting with XGBoost](#gradient-boosting-with-xgboost)
-  - [Deep Learning with TensorFlow](#deep-learning-with-tensorflow)
-  - [Deep Learning with Keras](#deep-learning-with-keras)
 
-Doing:
-
--   [Data Modeling with scikit-learn](Chapter/Data_Modeling.md)
-
-Done:
+Summary:
 
 - Machine Learning with NumPy, pandas, scikit-learn, and More
   -  [Data Manipulation with NumPy](Chapter/Data_Manipulation.md)
   -  [Data Analysis with pandas](Chapter/Data_Analysis.md)
   -  [Data Preprocessing with scikit-learn](Chapter/Data_Preprocessing.md)
+  -  [Data Modeling with scikit-learn](Chapter/Data_Modeling.md)
+  -  [Clustering with scikit-learn](Chapter/Clustering_with_scikit-learn.md)
+  -  [Gradient Boosting with XGBoost](Chapter/Gradient_Boosting_with_XGBoost.md)
+  -  [Deep Learning with TensorFlow](Chapter/Deep_Learning_with_TensorFlow.md)
+  -  [Deep Learning with Keras](Chapter/Deep_Learning_with_Keras.md)
 
 ## Introduction
 
@@ -35,13 +32,3 @@ They do not mean the same. ML is part of AI and AI overlaps with data science. T
 5. **Model Training and Data Pipeline**: then we need to choose a data pipeline. Making sure we always have a batch of data ready to be fed.
 6. **Model Validation**: we need to use never seen before data by the model so we can test and validate it.
 7. **Model Persistence**: then we need to save the crucial part! The
-
-
-
-## Clustering with scikit-learn
-
-## Gradient Boosting with XGBoost
-
-## Deep Learning with TensorFlow
-
-## Deep Learning with Keras

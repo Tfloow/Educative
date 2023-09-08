@@ -1,3 +1,5 @@
+[↰](../note.md)
+
 ## Data Analysis with pandas
 For this we are gonna use some data that were found [here](http://seanlahman.com/download-baseball-database/)
 
