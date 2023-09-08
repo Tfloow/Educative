@@ -1,6 +1,22 @@
 [↰](../note.md)
 
 ## Data Analysis with pandas
+
+- [Data Analysis with pandas](#data-analysis-with-pandas)
+  - [Series](#series)
+  - [Dataframe](#dataframe)
+  - [Combining](#combining)
+  - [Indexing](#indexing)
+  - [File I/O](#file-io)
+  - [Grouping](#grouping)
+  - [Features](#features)
+  - [Filtering](#filtering)
+  - [Sorting](#sorting)
+  - [Metrics](#metrics)
+  - [Plotting](#plotting)
+  - [To Numpy](#to-numpy)
+
+
 For this we are gonna use some data that were found [here](http://seanlahman.com/download-baseball-database/)
 
 ### Series
@@ -45,8 +61,8 @@ We can append a row of data to an existing dataframe. **Watch out** : it doesn't
 To drop lines in pandas, we use the `df.drop()`. We don't need an arguments but we can use some parameters:
 - `label`: to define which row to delete.
 - `axis`: to choose if we drop rows (0) or columns (1)
-- `index`: to drow a row.
-- `columns`: so no need to use label and axis, we immediatly specify the column to drop.
+- `index`: to draw a row.
+- `columns`: so no need to use label and axis, we immediately specify the column to drop.
 
 We can use `index` and `columns` together and even list.
 
@@ -65,7 +81,7 @@ print('{}\n'.format(concat))
 # 0   NaN  NaN  5.0  7.0
 # 1   NaN  NaN  6.0  8.0
 ```
-We can also *merge* DF together ! Thank to `pd.merge(df1, df2)`. It merges two DataFrames using their **common column labels**. If 2 data differs, pandas will use the data from `df2` and add a column describing how alike the two data are thaks to `rbi` column.
+We can also *merge* DF together ! Thank to `pd.merge(df1, df2)`. It merges two DataFrames using their **common column labels**. If 2 data differs, pandas will use the data from `df2` and add a column describing how alike the two data are thanks to `rbi` column.
 
 ### Indexing
 Now we will see how we retrieve data:
@@ -195,7 +211,7 @@ r3   3   0   9
 Now we will learn how to read dat from various type of format.
 
 #### Read CSV
-We use `read_csv()`. We sepcify the filepath. By default, the index is simply numbered from 0 to n-1. If we want to specify which columns should be used for index, we use `index_col`.
+We use `read_csv()`. We specify the filepath. By default, the index is simply numbered from 0 to n-1. If we want to specify which columns should be used for index, we use `index_col`.
 
 #### Read XLSX (Excel)
 We use `read_excel()`. It's a bit different than CSV because a XLSX can have other spreadsheet. We need to precise which sheet we want to use thanks to `sheet_name`. We can pass a `None` or a list of number and we will have a dictionary of DF.
@@ -346,11 +362,11 @@ print('{}\n'.format(hr40_df))
 </details>
 
 ### Sorting
-To sort in pandas, we use `sort_values()`. It takes as first argument the column we want to sort and we can set it into ascending or descending order thanks to `ascending`. We can also sort multiple columns when usinig a list of columns name.
+To sort in pandas, we use `sort_values()`. It takes as first argument the column we want to sort and we can set it into ascending or descending order thanks to `ascending`. We can also sort multiple columns when using a list of columns name.
 
 
 ### Metrics
-In pandas, rather than just computing everything by hand, we can have a description with useful data about the DF with `describe`. It returns an usefule DF with this init:
+In pandas, rather than just computing everything by hand, we can have a description with useful data about the DF with `describe`. It returns an useful DF with this init:
 | Metric |                                 Description                                 |
 | :----: | :-------------------------------------------------------------------------: |
 | count  |                     The number of rows in the DataFrame                     |
@@ -367,7 +383,7 @@ We can also set the percentiles ourself by passing a list like `percentiles=[.2,
 #### Categorical Features
 We cannot really compute or sum *categorical* features so we need to use `value_counts()` that simply count the recurrence. We also can sort by ascending or descending thanks to `ascending` or even *normalize* the data thanks to `normalize`.
 
-Something also useful is to get each *unique* data  that apperars in a column. We do this thanks to `unique()`.
+Something also useful is to get each *unique* data  that appears in a column. We do this thanks to `unique()`.
 ```python
 unique_players = df['playerID'].unique()
 print('{}\n'.format(repr(unique_players)))

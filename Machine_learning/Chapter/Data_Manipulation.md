@@ -1,6 +1,16 @@
 [↰](../note.md)
 
 ## Data Manipulation with NumPy
+
+- [Data Manipulation with NumPy](#data-manipulation-with-numpy)
+  - [Random](#random)
+  - [Slicing](#slicing)
+  - [Filtering Data](#filtering-data)
+  - [Statistics](#statistics)
+  - [Aggregation](#aggregation)
+  - [Saving Data](#saving-data)
+
+
 *This chapter mostly covers previously learned topics so I will just write down some useful info only*.
 
 - Casting: we can cast an entire array using `arr.astype(type)`.
@@ -23,7 +33,7 @@
 - `np.random.uniform(x)`: draw samples form probability distributions (takes the same parameters as `np.random.randint()`).
 - `np.random.normal(x)`: same as `np.random.uniform(x)` but with a normal gaussian distribution.
 
-We also have custom smapling! Useful to choose (pseudo-)randomly from a set like:
+We also have custom sampling! Useful to choose (pseudo-)randomly from a set like:
 ```python
 colors = ['red', 'blue', 'green']
 print(np.random.choice(colors))
@@ -45,7 +55,7 @@ print(repr(arr[:, 1:]))
 #       [5, 6],
 #       [8, 9]])
 ```
-We can use `argmin()` to find the minimum in an array. We can specify the axis thanks to the argument `axis=`. Each number represent the dimension. (eg: 0 equals to the colums, 1 to the rows, ...)
+We can use `argmin()` to find the minimum in an array. We can specify the axis thanks to the argument `axis=`. Each number represent the dimension. (eg: 0 equals to the columns, 1 to the rows, ...)
 
 ### Filtering Data
 If we have an array we can compare it like this `print(arr == 1)` and it will print us an array with boolean value. We also can use `~` for the negation. We can find `NaN` by printing `print(np.isnan(arr))` to show the `NaN` location.
@@ -97,7 +107,7 @@ We have also some useful other methods for statistics such as:
 
 ### Aggregation
 
-To sum all the values of ana rray, we use `np.sum()` to sum. We can pass `axis` to specify if we need to sum along the row or columns.
+To sum all the values of an array, we use `np.sum()` to sum. We can pass `axis` to specify if we need to sum along the row or columns.
 
 If we want to use the cumulative sum we can use `np.cumsum()`:
 ```python

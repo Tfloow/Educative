@@ -1,12 +1,23 @@
 [↰](../note.md)
 
 ## Data Preprocessing with scikit-learn
+
+- [Data Preprocessing with scikit-learn](#data-preprocessing-with-scikit-learn)
+  - [Standardizing Data](#standardizing-data)
+  - [Data Range](#data-range)
+  - [Robust Scaling](#robust-scaling)
+  - [Normalizing Data](#normalizing-data)
+  - [Data Imputation](#data-imputation)
+  - [PCA](#pca)
+  - [Labeled Data](#labeled-data)
+
+
 Scikit is closer to what data scientist will tend to use when analyzing data. We can work on smaller scale data.
 
 ### Standardizing Data
 Because data can vary drastically (weights in kilo vs. weights in pounds, speed of light vs. speed of a car) we want to give them some more depth and information. We will use the **standard format**. It refers to data that has 0 *mean* and an unit variance (1). We do a *data standardization*.
 
-To do so, we simply use a data $x$ that we substract the mean the data $\mu$ and divide by the *standard deviation* $\sigma$. It gives us a new value called $z$:
+To do so, we simply use a data $x$ that we subtract the mean the data $\mu$ and divide by the *standard deviation* $\sigma$. It gives us a new value called $z$:
 $$z = \frac{x-\mu}{\sigma}$$
 
 To use scikit and feed some data, we mostly need inputs coming from NumPy. To do some preprocessing we need to use the module `sklearn.preprocessing`.
@@ -99,7 +110,7 @@ array([[-0.89705882,  1.13513514],
 </details>
 
 ### Robust Scaling
-Dealing with *outliers* is really common when treating with data (especially big one). The issue with our 2 previous methode is that they are affected by outliers which could degrade the quality of our data.
+Dealing with *outliers* is really common when treating with data (especially big one). The issue with our 2 previous methods is that they are affected by outliers which could degrade the quality of our data.
 
 To avoid being affected by outliers, we can use IQR or **Interquartile range**. Those are percentiles (25%, 50% and 75%). We need to call `RobustScaler` for it:
 ```python
@@ -244,7 +255,7 @@ array([[1., 2., 1., 2.],
 ```
 </details>
 
-When we use the strategy `"cosntant"`, we need to specify the fill value thanks to the param `fill_value`.
+When we use the strategy `"constant"`, we need to specify the fill value thanks to the param `fill_value`.
 
 There is some other really useful and more advance imputation methods like the **k-Nearest Neighbors** or the **MICE**.
 

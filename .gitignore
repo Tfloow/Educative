@@ -1,3 +1,5 @@
 Make_your_neural_network/MNIST/mnist_train.csv
 __pycache__
 Machine_learning/useful.md
+.vscode
+.vscode/settings.json

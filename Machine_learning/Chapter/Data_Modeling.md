@@ -49,7 +49,7 @@ array([10.99, 12.5 ,  9.99, 10.99, 11.99])
 ```
 </details>
 
-Once we used the `fit` funciton, we can use our linear regression by calling the `predict` function. We can pass an array of array and we can get the coefficient with `coef_` and to get the intercept we use `intercept_`.
+Once we used the `fit` function, we can use our linear regression by calling the `predict` function. We can pass an array of array and we can get the coefficient with `coef_` and to get the intercept we use `intercept_`.
 
 To know how good a model is we can use the **coefficient of determination** ($R^2$ value) with the function `score`.
 
@@ -151,7 +151,7 @@ Chosen alpha: 0.3
 
 ### LASSO Regression
 
-Here, we use a L1 norm for the wieghts penalty.
+Here, we use a L1 norm for the weights penalty.
 
 $$\alpha ||w||_1 + \sum_{i=1}^n (x_i \cdot w - y_i)^2$$
 Lasso regularization works best with fewer parameter values. So it may zero-out some weights. It is dependant on less variable. To implement it in scikit we call the `Lasso` object. We can also set our alpha.
@@ -290,7 +290,7 @@ Prediction classes: array([1, 0])
 ```
 </details>
 
-We can also do *multiclass classification* (so when there is more than 2 labels). We need to initalize the `LogisticRegresssion` object with the keyword `multi_class`. By default, we are on `ovr` (One Vs Rest) here we want to use the `multinomial` strategy.
+We can also do *multiclass classification* (so when there is more than 2 labels). We need to initialize the `LogisticRegresssion` object with the keyword `multi_class`. By default, we are on `ovr` (One Vs Rest) here we want to use the `multinomial` strategy.
 
 ```python
 # predefined dataset
@@ -349,7 +349,7 @@ reg = linear_model.LogisticRegressionCV(
 
 ### Decision Trees
 
-We can use a binary tree to make a decision and classify everything. In scikit, for classification decision trees we use the `DecisionTreeClassifier` object, and regression trees with `DecisiionTreeRegressor`. They are both part of the `tree` module. Let's see how it works:
+We can use a binary tree to make a decision and classify everything. In scikit, for classification decision trees we use the `DecisionTreeClassifier` object, and regression trees with `DecisionTreeRegressor`. They are both part of the `tree` module. Let's see how it works:
 
 ```python
 from sklearn import tree
@@ -470,15 +470,15 @@ When we have a large enough dataset, we can do something even more useful. We sp
 
 The validation and testing are about the same size.
 
-If our dataset is not big enoug we can simply do **cross-validation**. We train the model in multiple smaller subsets. We use the **K-Fold CV**, the $k$ indicates the amount of rounds where we do the process of choosing one of the subset as the validation and the other as the training.
+If our dataset is not big enough we can simply do **cross-validation**. We train the model in multiple smaller subsets. We use the **K-Fold CV**, the $k$ indicates the amount of rounds where we do the process of choosing one of the subset as the validation and the other as the training.
 
-##### Scored corss-validation
+##### Scored cross-validation
 In scikit we can use `cross_val_score` function. We pass in `cv` the $k$:
 ```python
 from sklearn import linear_model
 from sklearn.model_selection import cross_val_score
 # We can skip max_iter argument here, but it will produce a
-# ConvergenceWarning. Therefore we explicity give a bigger value to
+# ConvergenceWarning. Therefore we explicitly give a bigger value to
 # avoid the warning.
 clf = linear_model.LogisticRegression(max_iter=3000)
 # Predefined data and labels
@@ -565,7 +565,7 @@ predictions = reg.predict(test_data)
 #### Evaluation metrics
 
 To classify how good a model is we use:
-- **For regression models**: the $R^2$, moean squared error or mean absolute error on the test.
+- **For regression models**: the $R^2$, mean squared error or mean absolute error on the test.
   - $R^2$: to evaluate the fit.
   - mean squared: to penalize bad predictions.
   - mean absolute error: definition of error.
