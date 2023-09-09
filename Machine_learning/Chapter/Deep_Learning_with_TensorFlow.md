@@ -495,4 +495,15 @@ array([0, 1])
 ```
 </details>
 
+```python
+probs = tf.nn.softmax(logits)
+predictions = tf.math.argmax(probs, axis=-1)
+
+class_labels = tf.argmax(labels, axis=-1)
+is_correct = tf.equal(predictions, class_labels)
+
+cross_entropy = tf.compat.v1.nn.softmax_cross_entropy_with_logits_v2(labels=labels, logits=logits)
+```
+![2D softmax](image-11.png)
+
 [→](Deep_Learning_with_Keras.md)
