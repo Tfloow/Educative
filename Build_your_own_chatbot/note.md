@@ -4,6 +4,8 @@
   - [Implementing a Chatbot](#implementing-a-chatbot)
     - [Prerequisites](#prerequisites)
     - [Features](#features)
+    - [Explanation](#explanation)
+  - [Training your House AI](#training-your-house-ai)
 
 
 Some part of this lesson will not be summarized because it intersects with other lesson I've previously covered.
@@ -30,4 +32,15 @@ We also want our chatbot to have human-like behavior such as:
 - Emotions
 - Intelligence
 
-There is a simple example [here](Code_example/main.py)
+There is a simple example [here](Code_example/main.py). **NOTE**: because it requires CPP library and the installer seems to hate my computer, I am going to run the program on [google colab](https://colab.research.google.com/drive/10ynxm4PpEfCteNRQo2PMQJ9kRWUTQvjX?usp=sharing). **NOTE NOTE**: I didn't find any ways to run the program on the cloud or on both of my local machine.
+
+### Explanation
+
+1. We first create the chatbot with `create_bot`. It takes a name as argument.
+2. Training: done with `train_all_data`.
+3. Training custom data: we let it run on our data. First argument is the function of the bot itself. Then we feed as second argument the data.
+4. Start: we simply use `start_chatbot`.
+
+## Training your House AI
+
+We need to feed our own data to identify ourself into the AI.
