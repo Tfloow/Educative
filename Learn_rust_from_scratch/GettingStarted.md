@@ -42,4 +42,33 @@ fn main() {
     println!("My name is  {name} and I do {job}", name="John", job="Science");
 }
 ```
+
+We can also format data to have a certain way to display.
+
+```{:b},{:x},{:o}```
  
+ b is for binary, x is for hexadecimal then o is octal.
+
+ We can also compute inside of those brackets.
+
+ We can also use the bracket as a debug thanks to the `{:?}` and it helps us printing multiple value like:
+
+ ```rust
+ fn main() {
+    println!("{:?}", ("This is a Rust Course", 101));
+}
+```
+
+## Printing Styles
+
+We have different type of printing:
+![Print type](image.png)
+
+## Comments
+
+We have different types of comment:
+1. Line comments: `//`
+2. Block comments: `/*...*/`
+3. Doc comments: `///` and `//!`
+   1. Outer doc comments: `///` They are written outside of the code block (it supports markdown notation)
+   2. Inner doc comments: `//!` So we add the comment inside of a code block.
