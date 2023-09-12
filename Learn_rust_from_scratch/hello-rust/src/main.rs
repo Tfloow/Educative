@@ -1,12 +1,12 @@
 /// Discovering **Rust** !
 fn main() {
-    let mut m = 1;
-    while m != 6{
- 
-       for _n in 1..(m+1){
-          print!("{}", m);
-       }
-       print!("\n");
-       m = m + 1;
-    }
+   let mut a = 4;
+   let mut b = 3;
+   a = a + b;
+   a = a * b;
+   a = a - b;
+   b = b - a;
+   println!("a:{}", a);
+   println!("b:{}", b);
+    
  }
