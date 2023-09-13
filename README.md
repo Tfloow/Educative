@@ -11,7 +11,7 @@
 - Matplolib for python [(url)](https://www.educative.io/courses/matplotlib-for-python-visually-represent-data-with-plots): 100%
 - Machine Learning with NumPy, pandas, scikit-learn and More [(url)](https://www.educative.io/courses/machine-learning-numpy-pandas-scikit-learn): 100%
 - (*Do Not Recommend*) Build Your Own Chatbot in Python [(url)](https://www.educative.io/courses/build-your-own-chatbot-in-python): 100% 
-- Learn Rust from Scratch [(url)](https://www.educative.io/courses/learn-rust-from-scratch): 58%
+- Learn Rust from Scratch [(url)](https://www.educative.io/courses/learn-rust-from-scratch): 71%
 
 ### Maybe
 

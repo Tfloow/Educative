@@ -51,7 +51,11 @@
     - [Slicing a string](#slicing-a-string)
     - [Functions and Strings](#functions-and-strings)
   - [Vectors](#vectors)
+    - [Resizing a Vector](#resizing-a-vector)
+    - [Iterating over a Vector](#iterating-over-a-vector)
+    - [Slicing a Vector](#slicing-a-vector)
   - [Structs](#structs)
+    - [Function and Structs](#function-and-structs)
   - [Enums](#enums)
   - [Traits and Generics](#traits-and-generics)
   - [Modules](#modules)
@@ -334,7 +338,11 @@ We cannot do shadowing with constant.
     - [Slicing a string](#slicing-a-string)
     - [Functions and Strings](#functions-and-strings)
   - [Vectors](#vectors)
+    - [Resizing a Vector](#resizing-a-vector)
+    - [Iterating over a Vector](#iterating-over-a-vector)
+    - [Slicing a Vector](#slicing-a-vector)
   - [Structs](#structs)
+    - [Function and Structs](#function-and-structs)
   - [Enums](#enums)
   - [Traits and Generics](#traits-and-generics)
   - [Modules](#modules)
@@ -891,12 +899,139 @@ To pass a string literal to a function, we use `&str` and for a string object, w
 
 ## Vectors
 
+Vectors are like arrays that can be resized. To create one you need to do this:
 
+```rust
+let vec_name = vec![elem1, elem2, elem3];
+```
 
+Here we created a vector thanks to the macro `vec!`.
 
+To access a value of a vector, we simply use something like this `vec[index]`.
+
+To print a vector, we use the debug print.
+
+#### Various method
+
+![method of a vector](image-8.png)
+
+### Resizing a Vector
+
+Wez can use `push()` to add something. We can get the *capacity* of a vector by using `capacity()`.
+
+To remove some element, we use `pop()`
+
+### Iterating over a Vector
+
+To iterate over a vector we can use the function `iter()`.
+
+```rust
+fn main() {
+    // defines a mutable vector
+    let mut my_vec = vec![1, 2, 3, 4, 5];
+    // define the value to be removed
+    let value = 2; 
+    // get the index of the value in the vector
+    let index = my_vec.iter().position(|&r| r == value).unwrap();
+    // call the built-in remove method
+    my_vec.remove(index);
+    // print the updated vector
+    println!("Updated Vector: {:?}", my_vec);
+}
+```
+
+<details>
+<summary>Output</summary>
+<br>
+
+```
+Updated Vector: [1, 3, 4, 5]
+```
+</details>
+
+To change the value of an element of a vector while looping we use `iter_mut()`:
+
+```rust
+fn main() {
+   // define a vector of size 5
+   let mut my_vec = vec![1, 2, 3, 4, 5];
+   println!("Initial Vector : {:?}", my_vec);
+   for x in my_vec.iter_mut(){
+       *x *= 3;
+   }
+   // print the updated vector
+   println!("Updated Vector : {:?}", my_vec);
+}
+```
+
+<details>
+<summary>Output</summary>
+<br>
+
+```
+Initial Vector : [1, 2, 3, 4, 5]
+Updated Vector : [3, 6, 9, 12, 15]
+```
+</details>
+
+### Slicing a Vector
+
+To slice a vector and save it, we need to save it like an array:
+
+```rust
+fn main() {
+   // define a vector of size 5
+   let my_vec = vec![1, 2, 3, 4, 5];
+   let slice:&[i32] = &my_vec[2..4];
+   // print the vector
+   println!("Slice of the vector : {:?}",slice);
+}
+```
+
+<details>
+<summary>Output</summary>
+<br>
+
+```
+Slice of the vector : [3, 4]
+```
+</details>
 
 
 ## Structs
+
+It is a way to create *custom datatypes*. For example, with special features, components, ...
+
+To declare a struct we do:
+
+```rust
+struct StructName{
+  param1:datatype,
+  param2:datatype,
+}
+```
+
+Then to initialize a struct we do:
+
+```rust
+let my_name = StructName{
+  param1:value1,
+  param2:value2,
+}
+```
+
+Then to access a specific data we do:
+
+```rust
+my_name.param
+```
+
+We can change the value of a param after it was first created if we created our variable as a `mut`.
+
+### Function and Structs
+
+
+
 
 ## Enums
 
