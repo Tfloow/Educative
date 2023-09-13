@@ -1,5 +1,10 @@
 # Learn Rust from Scratch
 
+<details>
+<summary> Summary</summary>
+<br>
+
+
 - [Learn Rust from Scratch](#learn-rust-from-scratch)
   - [Getting Started](#getting-started)
     - [The Basic Program](#the-basic-program)
@@ -27,7 +32,21 @@
     - [If Let](#if-let)
     - [Match](#match)
   - [Loops](#loops)
+    - [Definite Loop](#definite-loop)
+    - [Indefinite Loops](#indefinite-loops)
+    - [Break Statement](#break-statement)
+    - [Continue Statement](#continue-statement)
+    - [Loop Labels](#loop-labels)
+  - [Functions](#functions)
+    - [Functions with Parameters](#functions-with-parameters)
+    - [Pass by Value](#pass-by-value)
+    - [Pass by Reference](#pass-by-reference)
+    - [Returning a Value From a Function](#returning-a-value-from-a-function)
+    - [Returning Multiple Values](#returning-multiple-values)
+    - [Function with Arrays as Arguments](#function-with-arrays-as-arguments)
 
+
+</details>
 
 ## Getting Started
 
@@ -172,6 +191,18 @@ FOr the scope it's like in C where it depends of the codeblock. We can redeclare
     - [If Let](#if-let)
     - [Match](#match)
   - [Loops](#loops)
+    - [Definite Loop](#definite-loop)
+    - [Indefinite Loops](#indefinite-loops)
+    - [Break Statement](#break-statement)
+    - [Continue Statement](#continue-statement)
+    - [Loop Labels](#loop-labels)
+  - [Functions](#functions)
+    - [Functions with Parameters](#functions-with-parameters)
+    - [Pass by Value](#pass-by-value)
+    - [Pass by Reference](#pass-by-reference)
+    - [Returning a Value From a Function](#returning-a-value-from-a-function)
+    - [Returning Multiple Values](#returning-multiple-values)
+    - [Function with Arrays as Arguments](#function-with-arrays-as-arguments)
 
 
 Rust is a **statically typed** language so we need to specify the data type at compile time.
@@ -313,6 +344,18 @@ We cannot do shadowing with constant.
     - [If Let](#if-let)
     - [Match](#match)
   - [Loops](#loops)
+    - [Definite Loop](#definite-loop)
+    - [Indefinite Loops](#indefinite-loops)
+    - [Break Statement](#break-statement)
+    - [Continue Statement](#continue-statement)
+    - [Loop Labels](#loop-labels)
+  - [Functions](#functions)
+    - [Functions with Parameters](#functions-with-parameters)
+    - [Pass by Value](#pass-by-value)
+    - [Pass by Reference](#pass-by-reference)
+    - [Returning a Value From a Function](#returning-a-value-from-a-function)
+    - [Returning Multiple Values](#returning-multiple-values)
+    - [Function with Arrays as Arguments](#function-with-arrays-as-arguments)
 
 ![Alt text](image-2.png)
 ![Alt text](image-3.png)
@@ -469,5 +512,280 @@ fn main(){
 ```
 
 ## Loops
+
+We have either:
+1. Definite loops with `for`.
+2. Indefinite loops with `while` and `loop`.
+
+### Definite Loop
+
+The syntax of a ``for`` in Rust is like the following:
+
+```rust
+for i in 0..10{
+  println!("{}", i)
+}
+```
+
+So it will enumerate from 0 up until 10 non inclusive.
+
+We can also **enumerate** on the iteration like this
+
+```rust
+for (count, variable) in (7..10).enumerate() {
+  println!("count = {}, variable = {}", count, variable);
+}
+```
+
+<details>
+<summary>Output</summary>
+<br>
+
+```
+count = 0, variable = 7
+count = 1, variable = 8
+count = 2, variable = 9
+```
+</details>
+
+### Indefinite Loops
+
+#### While
+
+It's like any `while` loop ever.
+
+```rust
+while i < 0{
+  // Do something
+  i+=1;
+}
+```
+
+#### Loop
+
+We can make the iteration continue *infinitely* with a `loop`.
+
+```rust
+loop{
+  // Do something
+}
+```
+
+### Break Statement
+
+It is to simply break from a loop.
+
+```rust
+for i in 0..10 {
+  if i==1 {
+    break;
+  }
+}
+```
+
+### Continue Statement
+
+It is the opposite of the `break` statement. A `continue` will just keep the loop to run.
+
+### Loop Labels
+
+Something specific to Rust, it is the label to a loop. We had a lap before a `for`, `while` or `loop` with a `:`.
+
+```rust
+fn main() {
+ 'outer:for i in 1..5 { //outer loop
+    println!("Multiplication Table : {}", i);
+   'inner:for j in 1..5 { // inner loop
+        if i == 3 { continue 'outer; } // Continues the loop over `i`.
+        if j == 2 { continue 'inner; } // Continues the loop over `j`.
+        println!("{} * {} = {}", i, j, i * j);
+   }
+ }
+}
+```
+
+<details>
+<summary>Output</summary>
+<br>
+
+```
+Multiplication Table : 1
+1 * 1 = 1
+1 * 3 = 3
+1 * 4 = 4
+Multiplication Table : 2
+2 * 1 = 2
+2 * 3 = 6
+2 * 4 = 8
+Multiplication Table : 3
+Multiplication Table : 4
+4 * 1 = 4
+4 * 3 = 12
+4 * 4 = 16
+```
+</details>
+
+
+
+
+
+
+## Functions
+
+```rust
+//define a function
+fn display_message(){
+  println!("Hi, this is my user defined function");
+}
+//driver function
+fn main() {
+     //invoke a function
+      display_message();
+      println!("Function ended");
+}
+```
+
+<details>
+<summary>Output</summary>
+<br>
+
+```
+Hi, this is my user defined function
+Function ended
+```
+</details>
+
+### Functions with Parameters
+
+When we have a function in Rust, we not only need to specify the name of the parameter but its type with something looking like `param_1:i32`.
+
+```rust
+//function definition
+fn my_func(param_1:i32, param_2:i32) {
+  println!("The first value passed inside function : {}", param_1);
+  println!("The second value passed inside function : {}", param_2);
+}
+fn main() {
+  let value_1 = 1;
+  let value_2 = 2;
+  //calling the function
+  my_func( value_1, value_2 );
+  println!("Function ended");
+}
+```
+
+### Pass by Value
+
+It is important to know that the value passed like this are a **copy** of the value ! So it won't change the actual variable. To change the variable we need to pass its reference (more [here](#pass-by-reference)).
+
+
+### Pass by Reference
+
+If we want to change the value passed, we need to use the reference of this variable with this `param_1:&mut i32`.
+
+```rust
+fn square(n:&mut i32){
+  *n = *n * *n;
+  println!("The value of n inside function : {}", n);
+}  
+fn main() {
+  let  mut n = 4;
+  println!("The value of n before function call : {}", n);
+  println!("Invoke Function");
+  square(&mut n);
+  println!("The value of n after function call : {}", n);
+}
+```
+
+<details>
+<summary>Output</summary>
+<br>
+
+```
+The value of n before function call : 4
+Invoke Function
+The value of n inside function : 16
+The value of n after function call : 16
+```
+</details>
+
+### Returning a Value From a Function
+
+Before using the keyword `return` to return our value, we need to specify what type of value is returned by our function with something like this `fn functionName(param1:datatype) -> datatype`. And then we need to use `return value`.
+
+```rust
+fn square(n:i32)->i32{
+  println!("The value of n inside function : {}", n);
+  let m = n * n;
+  m // return the square of the number n
+}  
+fn main() {
+  let  n = 4;
+  println!("The value of n before function call : {}", n);
+  println!("Invoke Function");
+  println!("\nOutput : {}",square(n));
+}
+```
+
+<details>
+<summary>Output</summary>
+<br>
+
+```
+The value of n before function call : 4
+Invoke Function
+The value of n inside function : 4
+
+Output : 16
+```
+</details>
+
+### Returning Multiple Values
+
+To return multiple value we can do this by using a tuple.
+
+```rust
+// driver function
+fn main() {
+    let length = 4;
+    let width = 3;
+    println!("Rectangle length:{}", length);
+    println!("Rectangle width:{}", width);
+    let (area, perimeter) = calculate_area_perimeter(length, width);
+    println!("Area: {}, Perimeter: {}", area, perimeter);
+}
+// calculate area and perimeter
+fn calculate_area_perimeter(x: i32, y: i32) -> (i32, i32) {
+    // calculate the area and perimeter of rectangle
+    let area = x * y;
+    let perimeter = 2 * (x + y);
+    // return the area and perimeter of rectangle
+    (area, perimeter)
+}
+```
+
+### Function with Arrays as Arguments
+
+If we pass an array as argument, we need to use this syntax:
+
+```rust
+fn function_name( mut array_name:[datatype;size] )
+```
+
+#### Pass by Reference
+
+We can also pass by *reference* by simply adding `&`.
+
+```rust
+fn function_name( mut array_name:[&datatype;size] )
+```
+
+#### Return an Array
+
+To return an array we do:
+
+```rust
+fn function_name() ->[datatype;size] 
+```
 
 
