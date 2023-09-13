@@ -44,6 +44,18 @@
     - [Returning a Value From a Function](#returning-a-value-from-a-function)
     - [Returning Multiple Values](#returning-multiple-values)
     - [Function with Arrays as Arguments](#function-with-arrays-as-arguments)
+  - [Strings](#strings)
+    - [Core methods of String Objects](#core-methods-of-string-objects)
+    - [Iterating over Strings](#iterating-over-strings)
+    - [Updating a String](#updating-a-string)
+    - [Slicing a string](#slicing-a-string)
+    - [Functions and Strings](#functions-and-strings)
+  - [Vectors](#vectors)
+  - [Structs](#structs)
+  - [Enums](#enums)
+  - [Traits and Generics](#traits-and-generics)
+  - [Modules](#modules)
+  - [Lifetime and Memory Management](#lifetime-and-memory-management)
 
 
 </details>
@@ -163,47 +175,6 @@ FOr the scope it's like in C where it depends of the codeblock. We can redeclare
 
 
 ## Data Types
-
-- [Learn Rust from Scratch](#learn-rust-from-scratch)
-  - [Getting Started](#getting-started)
-    - [The Basic Program](#the-basic-program)
-    - [Basic Formatting](#basic-formatting)
-  - [Printing Styles](#printing-styles)
-  - [Comments](#comments)
-  - [Variables](#variables)
-    - [Scope and Shadowing](#scope-and-shadowing)
-  - [Data Types](#data-types)
-    - [Numeric Types](#numeric-types)
-    - [Boolean](#boolean)
-    - [Character and String](#character-and-string)
-    - [Arrays](#arrays)
-    - [Tuples](#tuples)
-    - [Constant Variables](#constant-variables)
-  - [Operators](#operators)
-    - [Arithmetic](#arithmetic)
-    - [Logical](#logical)
-    - [Comparison](#comparison)
-    - [Bitwise](#bitwise)
-    - [Type Casting Operator](#type-casting-operator)
-    - [Borrowing and Dereferencing Operators](#borrowing-and-dereferencing-operators)
-  - [Conditional Expressions](#conditional-expressions)
-    - [If](#if)
-    - [If Let](#if-let)
-    - [Match](#match)
-  - [Loops](#loops)
-    - [Definite Loop](#definite-loop)
-    - [Indefinite Loops](#indefinite-loops)
-    - [Break Statement](#break-statement)
-    - [Continue Statement](#continue-statement)
-    - [Loop Labels](#loop-labels)
-  - [Functions](#functions)
-    - [Functions with Parameters](#functions-with-parameters)
-    - [Pass by Value](#pass-by-value)
-    - [Pass by Reference](#pass-by-reference)
-    - [Returning a Value From a Function](#returning-a-value-from-a-function)
-    - [Returning Multiple Values](#returning-multiple-values)
-    - [Function with Arrays as Arguments](#function-with-arrays-as-arguments)
-
 
 Rust is a **statically typed** language so we need to specify the data type at compile time.
 
@@ -356,6 +327,18 @@ We cannot do shadowing with constant.
     - [Returning a Value From a Function](#returning-a-value-from-a-function)
     - [Returning Multiple Values](#returning-multiple-values)
     - [Function with Arrays as Arguments](#function-with-arrays-as-arguments)
+  - [Strings](#strings)
+    - [Core methods of String Objects](#core-methods-of-string-objects)
+    - [Iterating over Strings](#iterating-over-strings)
+    - [Updating a String](#updating-a-string)
+    - [Slicing a string](#slicing-a-string)
+    - [Functions and Strings](#functions-and-strings)
+  - [Vectors](#vectors)
+  - [Structs](#structs)
+  - [Enums](#enums)
+  - [Traits and Generics](#traits-and-generics)
+  - [Modules](#modules)
+  - [Lifetime and Memory Management](#lifetime-and-memory-management)
 
 ![Alt text](image-2.png)
 ![Alt text](image-3.png)
@@ -787,5 +770,144 @@ To return an array we do:
 ```rust
 fn function_name() ->[datatype;size] 
 ```
+
+## Strings
+
+#### String Literal `&str`
+
+String are like in C, defined with a pointer, fixed size and we **must** know its length at *compile time*. It is primitive.
+
+#### String Object `String`
+
+It is encoded in *UTF-8* and it's allocated in the Heap. We can modify its size, not null-terminated.
+
+To create a new String object, we can either convert a string literal or create a brand new one.
+
+```rust
+let language = String::new();
+let S_language = language.to_string();
+```
+
+So here we create a new empty string literal and then we convert it.
+
+```rust
+let language = String::from("Rust");
+```
+
+We can use the `len()` to get the length of a string object.
+
+### Core methods of String Objects
+
+We have the amount of bytes allocated to a string object with the `capacity()` function:
+
+```rust
+fn main() {
+  // define a growable string variable
+  let course = String::from("Rust");
+  println!("This is a beginner course in {}.", course);
+  //capacity in bytes
+  println!("Capacity: {}.", course.capacity());
+}
+```
+
+<details>
+<summary>Output</summary>
+<br>
+
+```
+This is a beginner course in Rust.
+Capacity: 4.
+```
+</details>
+
+We can see if a substring is in a string (for example is low in the word below) with the function `contains`.
+
+We can replace a specific substring of a string thanks to the `replace`. If we have a string `str` that contains a substring `bad` and we want to change it for something else `good` we do `str.replace(bad, good)`.
+
+To remove some unwanted blank space at the beginning and end of a string we do `trim()`.
+
+### Iterating over Strings
+
+We can *tokenize* a string with `split_whitespace()` so we can iterate on word of a string.
+
+We can also tokenize on a specific character thanks to `split(str_split)`. With ``str_split`` being where we split. 
+
+We can also simply iterate over the character of a string object with `chars()`.
+
+### Updating a String
+
+To add a character at the end of a string, we need to use `push()`. If we want want to add a whole new substring at the end, we need to use `push_str()` .
+
+We also can concatenate two strings like this:
+
+```rust
+#[allow(unused_variables, unused_mut)]
+fn main(){
+   // define a String object 
+   let course = "Rust".to_string();
+   // define a String object
+   let course_type = " beginner course".to_string();
+   // concatenate using the + operator
+   let result = course + &course_type;
+   println!("{}", result);
+}
+```
+
+For this task, we can also use the macro `format!` which is really convenient:
+
+```rust
+fn main(){
+  
+   let course = "Rust".to_string();
+   let _course_type = "beginner course".to_string();
+   // default format macro 
+   let result = format!("{} {}", course, _course_type);
+   // passing value in the placeholder in the format macro 
+   let result = format!("{1} {0}", course,_course_type);
+   println!("{}", result);
+}
+```
+
+<details>
+<summary>Output</summary>
+<br>
+
+```
+beginner course Rust
+```
+</details>
+
+### Slicing a string
+
+To slice a string we just do this:
+
+```rust
+let slice = &string[start..end];
+```
+
+### Functions and Strings
+
+To pass a string literal to a function, we use `&str` and for a string object, we use `String`.
+
+## Vectors
+
+
+
+
+
+
+## Structs
+
+## Enums
+
+## Traits and Generics
+
+## Modules
+
+## Lifetime and Memory Management
+
+
+
+
 
 

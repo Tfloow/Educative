@@ -30,6 +30,7 @@ Each folder correspond to a course from Educative. In each folder you can find a
 - [Neural Network](Make_your_neural_network/Note.md)
 - [Matplotlib introduction](Matplotlib_for_Python/note.md)
 - [Machine learning](Machine_learning/note.md)
+- [Build your own Chatbot](Build_your_own_chatbot/note.md)
 - [Learn Rust from Scratch](Learn_rust_from_scratch/note.md)
 
 ## Credit
