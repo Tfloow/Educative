@@ -60,7 +60,15 @@
     - [Static Method of Structs](#static-method-of-structs)
     - [Tuple Structs](#tuple-structs)
   - [Enums](#enums)
+    - [Enums with Data Type](#enums-with-data-type)
+    - [Methods of Enums](#methods-of-enums)
+    - [Enums and Match Control Flow](#enums-and-match-control-flow)
+    - [Enums and Structures](#enums-and-structures)
+    - [Option and Enum](#option-and-enum)
+    - [Result and Enum](#result-and-enum)
   - [Traits and Generics](#traits-and-generics)
+    - [Traits](#traits)
+    - [Generics](#generics)
   - [Modules](#modules)
   - [Lifetime and Memory Management](#lifetime-and-memory-management)
 
@@ -294,65 +302,6 @@ const b = *a random variable*; // ✖
 We cannot do shadowing with constant.
 
 ## Operators
-
-- [Learn Rust from Scratch](#learn-rust-from-scratch)
-  - [Getting Started](#getting-started)
-    - [The Basic Program](#the-basic-program)
-    - [Basic Formatting](#basic-formatting)
-  - [Printing Styles](#printing-styles)
-  - [Comments](#comments)
-  - [Variables](#variables)
-    - [Scope and Shadowing](#scope-and-shadowing)
-  - [Data Types](#data-types)
-    - [Numeric Types](#numeric-types)
-    - [Boolean](#boolean)
-    - [Character and String](#character-and-string)
-    - [Arrays](#arrays)
-    - [Tuples](#tuples)
-    - [Constant Variables](#constant-variables)
-  - [Operators](#operators)
-    - [Arithmetic](#arithmetic)
-    - [Logical](#logical)
-    - [Comparison](#comparison)
-    - [Bitwise](#bitwise)
-    - [Type Casting Operator](#type-casting-operator)
-    - [Borrowing and Dereferencing Operators](#borrowing-and-dereferencing-operators)
-  - [Conditional Expressions](#conditional-expressions)
-    - [If](#if)
-    - [If Let](#if-let)
-    - [Match](#match)
-  - [Loops](#loops)
-    - [Definite Loop](#definite-loop)
-    - [Indefinite Loops](#indefinite-loops)
-    - [Break Statement](#break-statement)
-    - [Continue Statement](#continue-statement)
-    - [Loop Labels](#loop-labels)
-  - [Functions](#functions)
-    - [Functions with Parameters](#functions-with-parameters)
-    - [Pass by Value](#pass-by-value)
-    - [Pass by Reference](#pass-by-reference)
-    - [Returning a Value From a Function](#returning-a-value-from-a-function)
-    - [Returning Multiple Values](#returning-multiple-values)
-    - [Function with Arrays as Arguments](#function-with-arrays-as-arguments)
-  - [Strings](#strings)
-    - [Core methods of String Objects](#core-methods-of-string-objects)
-    - [Iterating over Strings](#iterating-over-strings)
-    - [Updating a String](#updating-a-string)
-    - [Slicing a string](#slicing-a-string)
-    - [Functions and Strings](#functions-and-strings)
-  - [Vectors](#vectors)
-    - [Resizing a Vector](#resizing-a-vector)
-    - [Iterating over a Vector](#iterating-over-a-vector)
-    - [Slicing a Vector](#slicing-a-vector)
-  - [Structs](#structs)
-    - [Function and Structs](#function-and-structs)
-    - [Methods of Structs](#methods-of-structs)
-    - [Static Method of Structs](#static-method-of-structs)
-    - [Tuple Structs](#tuple-structs)
-  - [Enums](#enums)
-  - [Traits and Generics](#traits-and-generics)
-  - [Modules](#modules)
-  - [Lifetime and Memory Management](#lifetime-and-memory-management)
 
 ![Alt text](image-2.png)
 ![Alt text](image-3.png)
@@ -1092,11 +1041,262 @@ Then to access it we simply do `tuple_name.value`.
 
 ## Enums
 
+This is a custom data type that is composed of *variants*. It is for example an object (like a water bottle) that has different state (empty or full).
 
+To declare an Enum, we do this:
 
+```rust
+enum EnumName{
+  Variant1,
+  Variant2,
+}
+```
 
+Then to initialize an Enum, we need to do this:
+
+```rust
+let my_name = EnumName::Variant;
+```
+
+### Enums with Data Type
+
+If we want to use datatype we can do this with:
+
+```rust
+enum EnumName{
+  variant1(datatype),
+  variant2(datatype),
+}
+```
+
+### Methods of Enums
+
+We can implement methods into an enum:
+
+```rust
+#![allow(dead_code)]
+#[derive(Debug)]
+// declare an enum
+enum TrafficSignal{
+  Red, Green, Yellow
+}
+//implement a Traffic Signal methods
+impl TrafficSignal{
+  // if the signal is red then return
+   fn is_stop(&self)->bool{
+     match self{
+       TrafficSignal::Red=>return true,
+       _=>return false
+     }
+   }
+}
+```
+
+### Enums and Match Control Flow
+
+We can use the `match` to compare values in a `enum` like this:
+
+```rust
+match value{
+  EnumName::variant1 => ...:
+  EnumName::variant2 => ...;
+}
+```
+Example:
+```rust
+enum KnightMove{
+   Horizontal,Vertical
+}
+// print function 
+fn print_direction(direction:KnightMove) {
+   // match statement
+   match direction {
+      //execute if knight move is horizontal
+      KnightMove::Horizontal => {
+         println!("Move in horizontal direction");
+      },
+       //execute if knight move is vertical
+      KnightMove::Vertical => {
+         println!("Move in vertical direction");
+      }
+   }
+}
+
+fn main() {
+   // invoke function `print_direction`
+   let knight1 = KnightMove::Horizontal;
+   let knight2 = KnightMove::Vertical;
+   print_direction(knight1);
+   print_direction(knight2);
+}
+```
+
+<details>
+<summary>Output</summary>
+<br>
+
+```
+Move in horizontal direction
+Move in vertical direction
+```
+</details>
+
+### Enums and Structures
+
+We can have a structure that has a parameter as a enum like this:
+
+```rust
+struct StructName{
+  item1: datatype,
+  item2: enumName,
+}
+```
+
+### Option and Enum
+
+It is a built-in enum in Rust. It has 2 variants:
+1. `Some`
+2. `None`
+
+```rust
+Option <T>{
+  Some(T),
+  None
+}
+```
+
+So `Some(T)` returns some value T and ``none`` returns nothing.
+
+```rust
+fn main() {
+   println!("{:?}", learn_lang("Rust"));
+   println!("{:?}", learn_lang("Python"));
+}
+fn learn_lang(my_lang:&str)-> Option<bool> {
+   if my_lang == "Rust" {
+      Some(true)
+   } else {
+      None
+   }
+}
+```
+
+<details>
+<summary>Output</summary>
+<br>
+
+```
+Some(true)
+None
+```
+</details>
+
+Rust also provides some useful function `is_some()` and `is_none()`. So with those we can identify what are the return value of Option.
+
+### Result and Enum
+
+Besides the Option in Rust, we have also Result. It has 2 variants:
+1. `Ok(T)`
+2. `Err(E)`
+
+It looks like 
+
+```rust
+Result <T, E>{
+  Ok(T),
+  Err(E)
+}
+```
+
+So for a success, we return a value of type `T` and for an error we return an error statement of type `E`.
+
+```rust
+fn main() {
+   println!("{:?}",file_found(true)); // invoke function by passing true 
+   println!("{:?}",file_found(false)); // invoke function by passing false
+}
+fn file_found(i:bool) -> Result<i32,bool> {
+   if i { // if true
+      Ok(200) // return Ok(200)
+   } else { // if false
+      Err(false) // return Err(false)
+   }
+}
+```
+
+<details>
+<summary>Output</summary>
+<br>
+
+```
+Ok(200)
+Err(false)
+```
+</details>
+
+As in Option, we have various function to check the return of this enum. We have `is_ok()` and `is_err()`.
 
 ## Traits and Generics
+
+
+### Traits
+
+It is used to define a standard set of behavior for multiple structs. It's like interfaces in Java.
+
+![Traits example](image-9.png)
+
+So we use traits to implement structs ! We can either have:
+- Concrete method: fully done function.
+- Abstract method: we gave a name without any body.
+
+To implement a trait in a structure we do this:
+
+```rust
+impl TraitName for StructName{
+  fn method(&self){
+    // instructions
+  }
+}
+```
+
+### Generics
+
+This is a way to generalize types. It provides us with **parametric polymorphism**. To specify we want a generic we type this:
+
+```rust
+<T>
+```
+
+Here we do an example with `Display` being a trait. For printing a value of the passed parameter, write use ``std::fmt::Display`` prior to function definition and after the generic function’s name write ``<T:Display>`` following the function name prior to writing the passing parameters.
+
+```rust
+fn main(){
+   println!("- Passing a string literal"); 
+   concatenate(" Rust ", " Programming "); 
+   println!("- Passing an integer"); 
+   concatenate(10 as i32, 1 as i32);
+   
+}
+use std::fmt::Display;
+fn concatenate<T:Display>(t:T, s:T){
+   let result = format!("{}{}", t , s);
+   println!("{}", result);
+}
+```
+
+<details>
+<summary>Output</summary>
+<br>
+
+```
+- Passing a string literal
+ Rust  Programming 
+- Passing an integer
+101
+```
+</details>
+
+
 
 ## Modules
 
