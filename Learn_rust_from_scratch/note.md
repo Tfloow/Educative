@@ -70,7 +70,19 @@
     - [Traits](#traits)
     - [Generics](#generics)
   - [Modules](#modules)
+    - [Control Visibility (same file)](#control-visibility-same-file)
+    - [Control Visibility (multiple files)](#control-visibility-multiple-files)
+    - [Nested Modules](#nested-modules)
+    - [The `use` Keyword](#the-use-keyword)
   - [Lifetime and Memory Management](#lifetime-and-memory-management)
+    - [Memory Management](#memory-management)
+    - [Ownership](#ownership)
+    - [Copy Type and Moved Type](#copy-type-and-moved-type)
+    - [Ownership and Functions](#ownership-and-functions)
+    - [Borrowing](#borrowing)
+    - [Lifetimes](#lifetimes)
+    - [Lifetime Elision](#lifetime-elision)
+  - [Overview](#overview)
 
 
 </details>
@@ -1296,14 +1308,235 @@ fn concatenate<T:Display>(t:T, s:T){
 ```
 </details>
 
-
-
 ## Modules
+
+A module is a collection of *items* so it can contain structs, enums, arrays, ...
+
+By making module we can keep our code organized and clean. To declare a module we need to do this:
+
+```rust
+mod module_name{
+  fn function_name(){
+  }
+
+  struct StructName{
+  }
+
+  enum EnumName{
+  }
+}
+```
+
+Then to invoke a module we do this `module_name::x;` with `x` being a function, array or anything in the module.
+
+- `mod`: to create a module
+- `pub`: to make the module public
+- `use`: to import a module in the *local* scope
+
+### Control Visibility (same file)
+
+If a module is defined outside of our scope, we will not be able to access its data.
+
+```rust
+// declare a module
+mod r {
+  pub fn print_statement(){
+    println!("Hi, this a function of module r");
+  }
+}
+// main function
+fn main() {
+  println!("Let's go inside the module");
+  // invoke a module 'r'
+   r::print_statement();
+}
+```
+
+<details>
+<summary>Output</summary>
+<br>
+
+```
+Let's go inside the module
+Hi, this a function of module r
+```
+</details>
+
+Notice how we set the function as `pub` not the whole module.
+
+We can also call another function not private inside of another function of a module. So if the second function is public and call the other private one, it will execute the private one.
+
+To access a function that's outside of our scope, we use `super::my_function()` to tell that the function we actually want is outside.
+
+### Control Visibility (multiple files)
+
+If we want to work with a module in another file we can do this:
+- Add `mod file_name` at the top of the file where we want to use the other file.
+- Do `file_name::x` to call a module in another file.
+
+![Alt text](image-10.png)
+
+If we want to wrap our module we then need to call `file_name::module::x`. 
+
+### Nested Modules
+
+We can also nest a module inside another module.
+
+```rust
+mod module_name{
+  mod mod_level1(){
+    mod mod_level2(){
+
+    }
+  }
+}
+```
+
+So if we want to access a nested module inside we need to do `ModLevel1::ModLevel2::ModLevel3::x`.
+
+### The `use` Keyword
+
+It helps us precise which specific module we want.
+
+```rust
+use ModLevel1::ModLevel2::ModLevel3;
+
+ModLevel3::x;
+```
+
+And Rust will know what module we want.
+
+We can also use the **Glob operator** `*`. So it will import all of the function, array, ... of the module and use it as they were defined in the file.
+
 
 ## Lifetime and Memory Management
 
 
+### Memory Management
 
+See difference about Stack and Heap.
 
+### Ownership
 
+3 important rules:
+1. Each value has a variable binding called its owner.
+2. There can only be **one** owner at a time.
+3. When an owner becomes out of scope, it is no longer accessible.
+
+### Copy Type and Moved Type
+
+If we copy a variable, we won't be able to modify the original copy since they cannot be two owner for the same value. This happens for **primitive** variable.
+
+For **non-primitive** like Vectors, String Objects, we do what we call *moved type*. So the ownership change from `a` to `b` if we set later `b=a`. If we want to copy the variable without moving it, we can simply use `clone()`.
+
+### Ownership and Functions
+
+When we pass a value in a function. We copy it if it's a primitive data type or copied if it's not.
+
+When returning it, it will always transfer the ownership.
+
+### Borrowing
+
+We can make a non mutable variable mutable by doing  this:
+
+```rust
+let a = 1;
+let b = &mut a;
+```
+
+A few rules for borrowing:
+
+1. There can be either one mutable borrow or any number of immutable borrows within the same scope.
+2. References must always be valid (watch out for moved borrows).
+
+It is possible to borrow a slice of an array, vector or string. Recall the syntax of slicing. It used an ``&`` before the name of the variable to be borrowed.
+
+### Lifetimes
+
+We use a lifetime annotation to describe the lifetime of a reference. We use an apostrophe then a single lower case character.
+
+```rust
+#![allow(dead_code)] 
+struct Course{
+   name: String,
+   id : i32,
+}
+
+fn get_course<'a> (c1: &'a Course, c2: &'a Course) -> &'a Course {
+  if c1.name == "Rust" {
+     c1
+  }
+  else {
+     c2
+  }
+}
+
+fn main(){
+  let c1: Course = Course {
+      name : String::from("Rust"),
+      id:101,
+    };
+    
+   let c2: Course = Course {
+      name : String::from("C++"),
+      id:101,
+    };
+    get_course(&c1, &c2);   
+}
+```
+
+So now the lifetime is set to last as long as the function.
+
+#### Multiple Lifetimes
+
+We have 2 case if we have 2 lifetime.
+
+1. They have the same lifetime and we use the same `'a`.
+2. They don't and we use for example a `'a` and then a `'b` to describe their lifetime.
+
+### Lifetime Elision
+
+We don't need to specify the lifetime. We have two ways of Lifetime Elision:
+1. **Input Lifetime**. It is a lifetime associated with a parameter of a function: `fn fun_name<'a>( x : & 'a i32);`
+2. **Output lifetime**. It is a lifetime associated with the return value of a function: ` fn fun_name<'a>() -> & 'a i32;`
+
+Of course they can have both of them.
+
+#### Rules for Elision
+
+1. Each input parameters gets its own lifetime. If the lifetime is not specified, then the lifetime of each parameter is different:
+   1. Elided: `fn fun_name(x:&i32, y:&i32)`.
+   2. Expanded: `fn fun_name<'a,'b>( x :& 'a i32, y : & 'b i32)` .
+2. If there is only one input parameter, its lifetime is assigned to all the elided output lifetimes:
+   1. Elided: `fn fun_name(x: i32) -> &i32`
+   2. Expanded: `fn fun<'a>(x: i32) -> & 'a i32`
+3. If there are multiple input lifetimes, one of them is `&self` or `&mut self`, the lifetime of `self` is assigned to all elided output lifetimes:
+   1. Elided: `fn fun_name(&self, x : &str) -> & str`
+   2. Expanded: `fn fun_name<'a,'b>(& 'a self, x : & 'b str) -> & 'a str`
+
+## Overview
+
+Table coming from the course on [Educative.io](https://www.educative.io) .
+
+|        Concept         |                                                                                  Explanation                                                                                  |
+| :--------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+|        Variable        |                                                                        holds data or reference to data                                                                        |
+|       Data type        | defines the type of value assigned to a variable. It can be primitive, or non-primitive. Primitives includes, integers, floats, character, boolean, array, tuples and string. |
+|         Array          |                                                                     sequence of elements of the same type                                                                     |
+|         Tuple          |                                                                    sequence of elements of different types                                                                    |
+|       Operators        |                                                               tell the compiler to perform specific operations                                                                |
+| Conditional Statements |                                                     statements that execute if the associated condition evaluates to true                                                     |
+|         Loops          |                                                 blocks of code that keep on executing until a specific condition become true                                                  |
+|       Functions        |                                                        a reusable piece of code that is used to perform a set of tasks                                                        |
+|        Strings         |                                 a sequence of character; primitive, i.e., String literal(&str) or non-primitive i.e., String object (String)                                  |
+|         Vector         |                                                                               A resizable array                                                                               |
+|        Structs         |                                                   A composite data type which contains definite values called its variants                                                    |
+|          Enum          |                                                    composite data type which contains definite values called its variants                                                     |
+|         Trait          |                                                                   define an interface for multiple structs                                                                    |
+|        Generics        |                                                generalize a data type for struct, enum, trait, function, array and collections                                                |
+|         Stack          |                                                           holds variable having primitive data type (size is known)                                                           |
+|          Heap          |                                                        holds variables having non-primitive data type (size is known)                                                         |
+|       Ownership        |              defines which variable will hold the value, Primitive data type copy their ownership and non-primitive data move their ownership during assignment               |
+|       Borrowing        |                                                          share a variable value or share and mutate a variable value                                                          |
+|        Lifetime        |                                                              defines the scope for which the reference is valid                                                               |
 
