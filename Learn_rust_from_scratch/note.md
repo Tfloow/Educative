@@ -56,6 +56,9 @@
     - [Slicing a Vector](#slicing-a-vector)
   - [Structs](#structs)
     - [Function and Structs](#function-and-structs)
+    - [Methods of Structs](#methods-of-structs)
+    - [Static Method of Structs](#static-method-of-structs)
+    - [Tuple Structs](#tuple-structs)
   - [Enums](#enums)
   - [Traits and Generics](#traits-and-generics)
   - [Modules](#modules)
@@ -343,6 +346,9 @@ We cannot do shadowing with constant.
     - [Slicing a Vector](#slicing-a-vector)
   - [Structs](#structs)
     - [Function and Structs](#function-and-structs)
+    - [Methods of Structs](#methods-of-structs)
+    - [Static Method of Structs](#static-method-of-structs)
+    - [Tuple Structs](#tuple-structs)
   - [Enums](#enums)
   - [Traits and Generics](#traits-and-generics)
   - [Modules](#modules)
@@ -1030,10 +1036,65 @@ We can change the value of a param after it was first created if we created our 
 
 ### Function and Structs
 
+We can also pass as argument a struct like so:
 
+```rust
+fn function_name(S:StructName)
+```
 
+And to return a struct we simply do:
+
+```rust
+fn function_name(S:StructName) -> StructName
+```
+
+### Methods of Structs
+
+A method is like a function but it is declared inside of a struct. To reference a parameter of the struct, we simply use `self.param1`.
+
+To call a method, we do `StructName.method()`.
+
+To declare that our struct will have a method we need to use this:
+
+```rust
+impl StructName{
+  fn method_name(&self){
+    self.param1;
+  }
+}
+```
+
+### Static Method of Structs
+
+A static method is simply a method that **doesn't** need a struct to be instantiate. 
+
+To invoke a static function we do:
+
+```rust
+StructName::method_name();
+```
+
+### Tuple Structs
+
+To create such struct, we do this:
+
+```rust
+struct tuple_name(datatype, datatype, datatype);
+```
+
+And to use it we do:
+
+```rust
+let a = tuple_name(v1, v2, v3);
+```
+
+Then to access it we simply do `tuple_name.value`.
 
 ## Enums
+
+
+
+
 
 ## Traits and Generics
 
