@@ -34,7 +34,13 @@ There are too many variables in play to be able to definitively say why this hap
 
 We will also compare our data to the **S&P**. (I extracted the csv from educative)
 
+[**Notebook**](Wages_and_CPI.ipynb)
+
 ## 3. Working With Major US Storm Data
+
+So here, we will need more cleaning and way more understanding of the raw material. (data [here](https://www.aoml.noaa.gov/hrd/hurdat/All_U.S._Hurricanes.html))
+
+[**Notebook**](Storm_data.ipynb)
 
 ## 4. Property Rights and Economic Development
 

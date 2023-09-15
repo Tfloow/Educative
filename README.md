@@ -12,8 +12,8 @@
 - Machine Learning with NumPy, pandas, scikit-learn and More [(url)](https://www.educative.io/courses/machine-learning-numpy-pandas-scikit-learn): 100%
 - (*Do Not Recommend*) Build Your Own Chatbot in Python [(url)](https://www.educative.io/courses/build-your-own-chatbot-in-python): 100% 
 - Learn Rust from Scratch [(url)](https://www.educative.io/courses/learn-rust-from-scratch): 100%
-- Flask: Develop Web Applications in Python [(url)](https://www.educative.io/courses/flask-develop-web-applications-in-python): 1%
-- Data Analytics in Python [(url)](https://www.educative.io/courses/data-analytics-in-python): 21%
+- Flask: Develop Web Applications in Python [(url)](https://www.educative.io/courses/flask-develop-web-applications-in-python): 20%
+- Data Analytics in Python [(url)](https://www.educative.io/courses/data-analytics-in-python): 37%
 
 ### Maybe
 
