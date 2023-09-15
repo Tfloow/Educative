@@ -12,12 +12,12 @@
 - Machine Learning with NumPy, pandas, scikit-learn and More [(url)](https://www.educative.io/courses/machine-learning-numpy-pandas-scikit-learn): 100%
 - (*Do Not Recommend*) Build Your Own Chatbot in Python [(url)](https://www.educative.io/courses/build-your-own-chatbot-in-python): 100% 
 - Learn Rust from Scratch [(url)](https://www.educative.io/courses/learn-rust-from-scratch): 100%
+- Flask: Develop Web Applications in Python [(url)](https://www.educative.io/courses/flask-develop-web-applications-in-python): 1%
+- Data Analytics in Python [(url)](https://www.educative.io/courses/data-analytics-in-python): 21%
 
 ### Maybe
 
-- Data Analytics in Python [(url)](https://www.educative.io/courses/data-analytics-in-python)
 - Introduction to Data Science with Python [(url)](https://www.educative.io/courses/introduction-to-data-science-with-python)
-- Flask: Develop Web Applications in Python [(url)](https://www.educative.io/courses/flask-develop-web-applications-in-python)
 - Fundamentals of Machine Learning for Software Engineers [(url)](https://www.educative.io/courses/fundamentals-of-machine-learning-for-software-engineers)
 - A Practical Guide to Kubernetes [(url)](https://www.educative.io/courses/practical-guide-to-kubernetes)
 - Become a Machine Learning Engineer [(url)](https://www.educative.io/path/become-a-machine-learning-engineer)
@@ -32,6 +32,8 @@ Each folder correspond to a course from Educative. In each folder you can find a
 - [Machine learning](Machine_learning/note.md)
 - [Build your own Chatbot](Build_your_own_chatbot/note.md)
 - [Learn Rust from Scratch](Learn_rust_from_scratch/note.md)
+- [Flask](Flask/note.md)
+- [Data Analytics in Python](Data_analytics_in_python/note.md)
 
 ## Credit
 Code written by Me. Each classes belong to their rightful writer that can be found on Educative's website. All the Data are not mine and belong to their rightful owner.
