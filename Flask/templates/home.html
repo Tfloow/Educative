@@ -1,46 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
-    <title>Home - Paws Rescue Center</title>
-</head>
+{% extends "base.html" %}
 
-<body>
-    <h1 class="centered-text">Paws Rescue Center 🐾</h1>
+{% block title %}
+Home
+{% endblock %}
 
-    <table border="0">
-        <tr> 
-            <th> Image </th>
-            <th> Name </th>
-            <th> Age </th>
-            <th> Bio </th>
-        </tr>
-        <tr>
-            <td> <img src="{{ url_for('static', filename='1.jpg')}}"> </td>
-            <td> Nelly </td>
-            <td> 5 weeks </td>
-            <td> I am a tiny kitten rescued by the good people at Paws Rescue Center. I love squeaky toys and cuddles. </td>
-        </tr>
-        <tr>
-            <td> <img src="{{ url_for('static', filename='2.jpg')}}"> </td>
-            <td>Yuki</td>
-            <td>8 months</td>
-            <td>I am a handsome gentle-cat. I like to dressup in bow ties.</td>
-        </tr>
-        <tr>
-            <td> <img src="{{ url_for('static', filename='3.jpg')}}"> </td>
-            <td>Basker</td>
-            <td>1 year</td>
-            <td>I love barking. But, I love my friends more.</td>
-        </tr>
-        <tr>
-            <td> <img src="{{ url_for('static', filename='4.jpg')}}"> </td>
-            <td>Mr. Furrkins</td>
-            <td>5 years</td>
-            <td>Probably napping.</td>
-        </tr>
+{% block body %}
+<h1 class="centered-text">Paws Rescue Center 🐾</h1>
 
+<table border="0">
+    <tr> 
+        <th> Image </th>
+        <th> Name </th>
+        <th> Age </th>
+        <th> Bio </th>
+    </tr>
+    {% for pet in my_pets %}
+    <tr>
+        <th> <a href="details/{{  pet["id"] }}"> <img src="{{url_for('static', filename='{id}.jpg'.format(id = pet["id"]))}}"> </a> </th>
+        <th> {{ pet["name"] }} </th>
+        <th> {{ pet["age"] }} </th>
+        <th> {{ pet["bio"] }} </th>
+    </tr>
+    {% endfor %}
 
-    </table>
-</body>
-</html>
+</table>
+{% endblock %}

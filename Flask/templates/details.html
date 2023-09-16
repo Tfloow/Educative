@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}
+Details
+{% endblock %}
+
+{% block body %}
+<h2> <a href="{{ url_for("home") }}"> Home </a> </h2>
+
+<div id="detail">
+    <div id="detail-photo"> <img id="detail-img" src="{{ url_for("static", filename="{id}.jpg".format(id = my_pet["id"])) }}"> </div>
+    <div id="detail-info">
+        <h1> {{ my_pet["name"] }} </h1>
+        <p> <b> Age: </b> {{ my_pet["age"] }} </p>
+        <p> <b> Bio: </b> {{ my_pet["bio"] }} </p>
+    </div>
+</div>
+{% endblock %}

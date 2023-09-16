@@ -10,6 +10,9 @@
   - [Static Templates](#static-templates)
   - [Static Files](#static-files)
   - [Dynamic Templates](#dynamic-templates)
+    - [Variables](#variables)
+    - [Control flow](#control-flow)
+    - [Template Inheritance](#template-inheritance)
 
 
 ## Introduction to Flask
@@ -85,3 +88,83 @@ To store static files or assets, we put all of this in the `/static` directory. 
 In our case we need to do `url_for('static', filename = 'name_of_file')`. And this need to be inside the `href` like we can see [here](templates/home.html).
 
 ## Dynamic Templates
+
+We want something generic on the server side but dynamic on the client side.
+
+We can have dynamic templating thanks to Jinja. Jinja works inside the html file we just need to provide some *delimiters*:
+- ``{% ... %}`` is used for statements.
+- ``{{ ... }}`` is used for variables.
+- ``{# ... #}`` is used for comments.
+- ``# ... ##`` is used for line statements.
+
+### Variables
+
+Than to Flask, we can pass any Python object in the template. To pass an object we first need to tell Python we are passing this object by doing:
+
+```python
+return render_template("index.html", my_object = Object)
+```
+
+and then we can use it with:
+
+```html
+{{ my_object }}
+```
+
+### Control flow
+
+Jinja provides syntax to handle control flow.
+
+#### Loops
+
+So for example a loop looks like this:
+
+```python
+{% for elements in array %}
+    ...
+{% endfor %}
+```
+
+So we can iterate to create more content easily as shown [here](dynamic_templates/app.py).
+
+#### Conditionals
+
+```python
+{% if true %}
+{% endif %}
+```
+
+We can also use ``elif`` and ``else``.
+
+### Template Inheritance
+
+It is useful when two or more pages are similar and rather than just copy pasting we can use their shared content with a `base.html`.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{{url_for('static', filename='format.css')}}" />
+    
+  <title>{% block title %}<!-- Placeholder for Title -->{% endblock %} - Jinja Demo</title>
+   
+    {% block head %} 
+    <!-- Placeholder for Other Imports -->
+    {% endblock %}
+    
+</head>
+<body>
+    <div id="header"> JINJA DEMO </div>
+    <div id="content">
+        {% block content %}
+        <!-- Placeholder for Page Content -->
+        {% endblock %}
+    </div>
+    <div id="footer"> Copyright © 2019 All Rights Reserved </div>
+</body>
+</html>
+```
+
+We jut created our block content (and finished it with the endblock).
+
+In Jinja, we first specify a block by using the keyword `block` then we give it a title (here `content`). More example [here](template_inheritance). As we can see, we also need to use the keyword `extends` to know what is this page needing.

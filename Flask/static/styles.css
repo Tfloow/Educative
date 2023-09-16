@@ -19,3 +19,18 @@ th, td {
 img {
     width: 150px;
 }
+#detail{
+    display: flex;
+}
+#detail-photo{
+    flex: 1; /* Allow both divs to grow and take equal space */
+    padding: 10px; /* Optional: Add padding for spacing */
+}
+#detail-info{
+    flex: 2.5; /* Allow both divs to grow and take equal space */
+    padding: 10px; /* Optional: Add padding for spacing */
+}
+#detail-img{
+    width: 400px;
+    border:2px solid #464646;
+}
