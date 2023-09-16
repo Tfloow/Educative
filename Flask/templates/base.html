@@ -2,13 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename="favicon.png") }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
     <title>{% block title %} {% endblock %} - Paws Rescue Center</title>
 </head>
 
 <body>
-    {% block body %}
+    <div id="navbar">
+        <a href="{{ url_for('home') }}" id="navbar-elem"> Home </a> <a href="{{ url_for('about') }}" id="navbar-elem"> About </a> 
+        {% if 'user' in session %}
+            <a href="{{ url_for('logout') }}" id="navbar-elem"> Log out </a>
+        {% else %}
+            <a href="{{ url_for('sign_up') }}" id="navbar-elem"> Signup </a> <a href="{{ url_for('login') }}" id="navbar-elem"> Login </a>
+        {% endif %}
 
-    {% endblock %}
+    </div>
+
+    <div id="body">
+        {% block body %}
+
+        {% endblock %}
+    </div>
 </body>
 </html>

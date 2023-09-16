@@ -5,8 +5,6 @@ Details
 {% endblock %}
 
 {% block body %}
-<h2> <a href="{{ url_for("home") }}"> Home </a> </h2>
-
 <div id="detail">
     <div id="detail-photo"> <img id="detail-img" src="{{ url_for("static", filename="{id}.jpg".format(id = my_pet["id"])) }}"> </div>
     <div id="detail-info">

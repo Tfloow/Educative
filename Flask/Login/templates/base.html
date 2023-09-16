@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{{url_for('static', filename='format.css')}}" />
+    <title>{% block title %}{% endblock %} - Jinja Demo</title>
+    {% block head %} 
+    {% endblock %}
+</head>
+<body>
+    <div>
+        <ul>
+            <li><a href="{{url_for('home')}}">Home</a></li>
+            <li><a href="{{url_for('login')}}">Login</a></li>
+        </ul>
+    </div>
+    <div id="header"> FORMS DEMO </div>
+    <div id="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <div id="footer"> Copyright © 2019 All Rights Reserved </div>
+</body>
+</html>

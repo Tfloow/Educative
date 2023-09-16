@@ -13,6 +13,11 @@
     - [Variables](#variables)
     - [Control flow](#control-flow)
     - [Template Inheritance](#template-inheritance)
+  - [Form handling](#form-handling)
+    - [Data Handling with Request Object](#data-handling-with-request-object)
+    - [Creating Forms using Flask-WTF and WTForms](#creating-forms-using-flask-wtf-and-wtforms)
+    - [Rendering Flask-WTF](#rendering-flask-wtf)
+    - [Form Validation and Data and Error Handling with Flask-WTF](#form-validation-and-data-and-error-handling-with-flask-wtf)
 
 
 ## Introduction to Flask
@@ -168,3 +173,142 @@ It is useful when two or more pages are similar and rather than just copy pastin
 We jut created our block content (and finished it with the endblock).
 
 In Jinja, we first specify a block by using the keyword `block` then we give it a title (here `content`). More example [here](template_inheritance). As we can see, we also need to use the keyword `extends` to know what is this page needing.
+
+## Form handling
+
+Flask does not provide us a way to handle forms. So we have 2 ways to get around:
+1. Via `request` object
+2. Via `Flask-WTF` extension
+
+So we will show how it works with a *login* page [example](Login/app.py).
+
+At first, the request fails with the `POST`. It's because the `@app.route()` only serves `GET` and not the `POST`. So to allow also `POST` we need to do:
+
+```python
+@app.route("/login", methods=["GET", "POST"])
+```
+
+### Data Handling with Request Object
+
+First we need to import from flask the request object.
+
+```python
+from flask import request
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        ...
+    else
+        ...
+    return render_template("login.html")
+```
+
+Then we can use the fact our login page is in a `form` to get the request from the user. We also need to set up the `name` in each of the input.
+
+```python
+email = request.form["email"]
+password = request.form["password"]
+```
+
+### Creating Forms using Flask-WTF and WTForms
+
+It is a library that makes form handling easy. Not only handle form validation but also the rendering.
+
+First we need to separate our application module from the forms module. So we are starting with a [forms.py](Login/forms.py)
+
+For each form on our website, we will create a class. As we are making a login form. Therefore, let’s name this class ``LoginForm``. This class will inherit from the ``FlaskForm`` class that we imported previously.
+
+Then, we need to add 3 important components:
+|             Components             |      WTForms      |
+| :--------------------------------: | :---------------: |
+|  1. An input field for the email   |  ``StringField``  |
+| 2. An input field for the password | ``PasswordField`` |
+|      3. The button to submit       |  ``SubmitField``  |
+
+So now we have:
+
+```python
+from flask_wtf import FlaskForm
+
+from wtforms import StringField, PasswordField, SubmitField
+
+class LoginForm(FlaskForm):
+    email = StringField('Email')
+    password = PasswordField('Password')
+    submit = SubmitField('Login')
+```
+
+#### Validators
+
+Those are the rules and checks that we want to apply. A full list can be found [here](https://wtforms.readthedocs.io/en/stable/validators/#built-in-validators).
+
+### Rendering Flask-WTF
+
+Now to render, we first need to modify how to render in [app.py](Login/app.py). We first need to import this:
+
+```python
+from forms import LoginForm
+```
+
+Then we create a login form template in the route. This form will be passed inside the ``render_template`` to be later used.
+
+```python
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    form = LoginForm()
+    return render_template("login.html", form = form)
+```
+
+Now we need to render this form in the html file. So we can use the Jinja syntax to render this using `{{ form.field_name }}` to get the input field and to get the label we use `{{ form.field_name.label }}`.
+
+#### Adding a `csrf_token` in the form
+
+It helps prevent against **Cross-Site Request Forgery**. We need to include this hidden field: 
+```html
+    {{ form.csrf_token }}
+    {{ form.submit }}
+```
+
+We also need to include our API key for this in app.py:
+
+```python
+app.config['SECRET_KEY'] = RANDOM_STRING
+```
+
+### Form Validation and Data and Error Handling with Flask-WTF
+
+Using Flask-WTF makes form handling easy with some key functions:
+
+|          Function           |                           Description                           |
+| :-------------------------: | :-------------------------------------------------------------: |
+|    `form.is_submitted()`    | Return true if all the fields were filled by the user or false. |
+|      `form.validate()`      |   Return true if all the conditions specified have been met.    |
+| `form.validate_on_submit()` |   combination fo `form.is_submitted()` and `form.validate()`.   |
+
+#### Error handling
+
+When the form encounter an error, we can find the error in the `form.errors` which is a dictionary with all the errors.
+
+#### Data handling
+
+To get the user input, we simply do `field_name.data` so here we had an email and password field name so we just do:
+
+```python
+print("Email:", form.email.data)
+print("Password:", form.password.data)
+```
+
+After creating this little navbar and sign-up page we want to be able to have a login and a logout in short a session mechanism.
+
+To maintain connection with a cookie we use the object `session`. This object is a simple dictionary. So when someone log in we add the user in this dictionary.
+
+So the keys in a login mechanism are:
+1. Authentication: so we need to look in the data from the login view and look that we have this user.
+2. Wrong user: deny the user.
+3. Valid user: accept the user.
+4. Starting a session: we need to add the user into the session object.
+5. Logout: we need to remove the user out the session object.
+6. Logout button: easily accessible log out button.
+
+

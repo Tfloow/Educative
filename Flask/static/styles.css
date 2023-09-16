@@ -34,3 +34,26 @@ img {
     width: 400px;
     border:2px solid #464646;
 }
+#navbar{
+    padding: 20px;
+    background-color: #302d2d;
+}
+#navbar-elem{
+    padding: 20px;
+    font-size: 27px;
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+#navbar-elem:hover{
+    background-color: #585555;
+}
+body{
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+#body{
+    margin: 5px;
+    padding: 5px;
+}

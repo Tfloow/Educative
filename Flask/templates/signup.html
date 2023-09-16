@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}
+Sign Up
+{% endblock %}
+
+{% block body %}
+    <h1> Sign Up </h1>
+
+    {% if result=="Failure"%}
+    <h2 style="color: red">Failed Signup</h2>
+    {% elif result=="Success"%}
+    <h2 style="color: green">Successful Signup</h2>
+    
+    {% endif %}
+
+    <form action="{{url_for('sign_up')}}" method="POST">
+        {{ form.Name.label }}: <br>
+        {{ form.Name }} 
+        <br>
+        {{ form.email.label }}: <br>
+        {{ form.email }} 
+        <br>
+        {{ form.password.label }}: <br>
+        {{ form.password }}
+        {{ form.csrf_token }}
+        <br>
+        {{ form.confirm_password.label }}: <br>
+        {{ form.confirm_password }}
+        <br>
+        {{ form.csrf_token }}
+        {{ form.submit }}
+    </form> 
+{% endblock %}
