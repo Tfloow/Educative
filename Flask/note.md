@@ -7,6 +7,9 @@
   - [First Flask Application](#first-flask-application)
     - [URL Routes and Views](#url-routes-and-views)
     - [Dynamic Routing](#dynamic-routing)
+  - [Static Templates](#static-templates)
+  - [Static Files](#static-files)
+  - [Dynamic Templates](#dynamic-templates)
 
 
 ## Introduction to Flask
@@ -54,3 +57,31 @@ We can also make a rule more flexible by making it depend of a variable like thi
 If we want to pass something else than a regular word, we need to use a **converter** like this: `"/<int:number>"`.
 
 We will also all along this course work on [Paws.py](Paws.py).
+
+## Static Templates
+
+A static template is the `HTML` file that remains constant. By essence, HTML is *static*.
+
+We can pass HTML code like `"<h1>Hello welcome</h1>"` to do a title on a page.
+
+But it's not really suited for rendering a whole app. We use `render_template()`. It has 2 arguments:
+1. `template_name_or_list`: the name of a template or an iterable list of templates.
+2. `context`: optional and variable that should be available inside the template.
+
+So our code looks something like:
+
+```python
+def view_name():
+    return render_template(template_name)
+```
+
+It will look for the template files in a directory called `/templates`.
+
+
+## Static Files
+
+To store static files or assets, we put all of this in the `/static` directory. Then when we want our webpage to load this content with the correct *endpoint* we need to use `url_for(view_function_name, variable_name = value_of_variable)`.
+
+In our case we need to do `url_for('static', filename = 'name_of_file')`. And this need to be inside the `href` like we can see [here](templates/home.html).
+
+## Dynamic Templates
