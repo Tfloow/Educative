@@ -18,6 +18,9 @@
     - [Creating Forms using Flask-WTF and WTForms](#creating-forms-using-flask-wtf-and-wtforms)
     - [Rendering Flask-WTF](#rendering-flask-wtf)
     - [Form Validation and Data and Error Handling with Flask-WTF](#form-validation-and-data-and-error-handling-with-flask-wtf)
+  - [Database](#database)
+    - [Database Connection using SQLAlchemy](#database-connection-using-sqlalchemy)
+    - [The One-to-Many Relationship](#the-one-to-many-relationship)
 
 
 ## Introduction to Flask
@@ -310,5 +313,106 @@ So the keys in a login mechanism are:
 4. Starting a session: we need to add the user into the session object.
 5. Logout: we need to remove the user out the session object.
 6. Logout button: easily accessible log out button.
+
+## Database
+
+### Database Connection using SQLAlchemy
+
+We will be using a SQL database and an *object relation mapper* to manipulate that database. An *ORM* makes writing SQL queries easier. It helps us writing queries in an object-oriented language.
+
+We will be using the library `SQLAlchemy` for this. But since we are using Flask, we will be using `flask_sqlalchemy` module.
+
+First we import it:
+
+```python
+from flask_sqlalchemy import SQLAlchemy
+```
+
+Then we need to tell our app where the database is located at. We are using a `SQLite` database. So we need to do this:
+
+```python
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///example.db'
+```
+
+Now we add all of this in our [file](Database/app.py).
+
+Now the last part of Flask is the use of **models**. First we need to create a new model for our user database. We also need to add the various important element that our database will have:
+
+```python
+class User(db.Model):
+    email = db.Column(db.String, primary_key=True, unique=True, nullable=False)
+    password = db.Column(db.String, nullable=False)
+```
+
+So we use various type of data like:
+
+|  Type   |  Type   |    Type    |    Type     |
+| :-----: | :-----: | :--------: | :---------: |
+| Integer | String  |    Text    |  DateTime   |
+|  Float  | Boolean | PickleType | LargeBinary |
+
+The we have some other useful parameters:
+
+- ``primary_key``: If set True, it will indicate the primary key of the table.
+- ``nullable``: If set False, it will be compulsory to set the value for that column.
+- ``unique``: If this parameter is set to True then all values for this column are checked for uniqueness.
+- ``index``: Setting it to True indicates that this column will be indexed.
+
+After making this class, we simply need to create our database. It creates the newly created model:
+
+```python
+db.create_all()
+```
+
+### The One-to-Many Relationship
+
+There is multiple relationship between tables:
+- One-to-Many
+- One-to-One
+- Many-to-Many
+
+To learn the One-to-Many, we will take the example of a HR of a company that needs to manage:
+- Employee
+- Department
+- Project
+
+So we can create a simple implementation with this:
+
+```python
+class Employee(db.Model):
+    employee_id = db.Column(db.Integer, primary_key = True)
+    first_name = db.Column(db.String(50), nullable = False)
+    last_name = db.Column(db.String(50), nullable = False)
+    
+class Department(db.Model):
+    name = db.Column(db.String(50), nullable = False)
+    location = db.Column(db.String(120), nullable = False)
+
+class Project(db.Model):
+    project_id = db.Column(db.Integer, primary_key = True, nullable = False)
+    name = db.Column(db.String(100), nullable = False)
+```
+
+Now we need to add relationship between all of this. An example of one-to-many is a department having many employees.
+
+There is various step to create this kind of relationship:
+
+1. **Create a column containing `ForeignKey()`**: so we create a new column in our class Employee. We tell that it is a new foreign key like this 
+```python 
+class Employee(db.Model):
+    employee_id = db.Column(db.Integer, primary_key = True)
+    first_name = db.Column(db.String(50), nullable = False)
+    last_name = db.Column(db.String(50), nullable = False)
+    department_name = db.Column(db.String(50), db.ForeignKey('department.name'), nullable = False)
+```
+
+2. **Create a `relationship()` column**: then in our department class model we need to explain there is a new relationship.
+
+```python
+class Department(db.Model):
+    name = db.Column(db.String(50), primary_key = True, nullable = False)
+    location = db.Column(db.String(120), nullable = False)
+    employees = db.relationship('Employee')
+```
 
 
